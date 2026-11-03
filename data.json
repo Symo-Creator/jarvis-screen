@@ -1,5 +1,5 @@
 {
-  "_readme": "PUBLIC DEMO COPY: real money and calendar data are kept off the public site. Run locally (serve.sh) for real data.",
+  "_readme": "Public demo. No private numbers or events.",
   "config": {
     "name": "Evan",
     "city": "Ames, IA",
@@ -21,28 +21,28 @@
   },
   "checklist": [
     {
-      "text": "Anki: clear all due",
-      "done": false,
-      "must": true
-    },
-    {
-      "text": "Gym 5:00 AM",
+      "key": "gym",
+      "text": "Gym",
       "done": false
     },
     {
-      "text": "Study 6:15 AM",
+      "key": "anki",
+      "text": "Anki cleared",
       "done": false
     },
     {
-      "text": "Deep Block 2",
+      "key": "study",
+      "text": "Study block",
       "done": false
     },
     {
-      "text": "Sales practice",
+      "key": "sales",
+      "text": "Sales/marketing practice",
       "done": false
     },
     {
-      "text": "AI project push",
+      "key": "phone",
+      "text": "Phone-free hour",
       "done": false
     }
   ],
@@ -253,27 +253,10 @@
   "streak": {
     "streak_current": 0,
     "streak_longest": 0,
-    "last_logged_date": "none yet",
-    "days_to_milestone": 7,
-    "next_milestone_days": 7,
-    "level_name": "Rookie",
-    "level_number": 1,
-    "xp_to_next_level": 500,
-    "hours_week": 0,
-    "hours_total": 0,
-    "sales_reps_total": 0,
-    "plan_week_number": 5,
-    "goal_week_hours_target": 25,
-    "goal_week_mvd_target": 6,
-    "goal_week_reps_target": 10,
-    "goal_month_theme": "Digital marketing map + first sales reps",
-    "goal_month_hours_target": 107,
-    "courses_done": 0,
-    "courses_total": 40,
-    "courses_done_pct": 0
+    "courses_done": 0
   },
   "money": {
-    "source": "daily-money-ledger.xlsx > Dashboard Feed",
+    "source": "public demo",
     "asOf": null,
     "stale": false,
     "goals": [
@@ -281,7 +264,6 @@
         "label": "Emergency fund",
         "current": null,
         "target": 1000.0,
-        "status": "UNDER",
         "note": "EDIT ME"
       },
       {
@@ -292,25 +274,65 @@
         "note": "EDIT ME"
       }
     ],
-    "balances": [
-      {
-        "label": "Checking",
-        "value": null
-      },
-      {
-        "label": "Other cash",
-        "value": null
-      },
-      {
-        "label": "Investments",
-        "value": null
-      },
-      {
-        "label": "Weekly income est.",
-        "value": null
-      }
-    ],
-    "spendThisMonth": {}
+    "balances": [],
+    "spendThisMonth": {},
+    "spending_today": null,
+    "tips_week": null,
+    "shift_income_week": null,
+    "ledger_income_week": null,
+    "ledger_spent_today": null
   },
-  "updatedFromExcel": "2026-11-03T15:22"
+  "today": {
+    "date": "",
+    "priority": "EDIT ME: your #1 priority today",
+    "tomorrowGoal": ""
+  },
+  "workout": {
+    "placeholder": true,
+    "time": "5:00 to 6:15 AM",
+    "targetWeek": 4,
+    "sessionsWeek": 0,
+    "gymStreak": 0,
+    "doneToday": false,
+    "notes": "",
+    "plan": {
+      "1": {
+        "name": "Push",
+        "exercises": [
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME"
+        ]
+      },
+      "2": {
+        "name": "Pull",
+        "exercises": [
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME"
+        ]
+      },
+      "3": {
+        "name": "Legs",
+        "exercises": [
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME"
+        ]
+      },
+      "4": {
+        "name": "Upper",
+        "exercises": [
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME",
+          "EDIT ME"
+        ]
+      }
+    },
+    "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
+  }
 }

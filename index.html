@@ -8,37 +8,64 @@
 </head>
 <body>
 <div id="stage">
-  <div class="panel p-clock" id="pClock">
-    <div id="clock" class="clock">--<span class="colon">:</span>--<span id="ampm" class="ampm"></span></div>
-    <div id="date" class="date dim">&nbsp;</div>
-  </div>
-  <div class="panel p-mantra" id="pMantra"><div id="mantra" class="mantra fade">&nbsp;</div></div>
-  <div class="panel p-weather" id="pWeather">
-    <div id="temp" class="temp">--&deg;</div>
-    <div class="wx-side"><div id="cond" class="cond">Weather</div><div id="hilo" class="hilo dim">Ames, IA</div></div>
-  </div>
-  <div class="panel p-sched" id="pSched">
-    <div class="ptitle">Next up</div>
-    <div id="nextup" class="nextup"><div class="nu-title">Loading...</div></div>
-    <div class="ptitle mt">Today</div>
-    <div id="sched" class="sched"></div>
-  </div>
-  <div class="panel p-streak" id="pStreak">
-    <div class="streak-left">
-      <div class="ptitle">Streak</div>
-      <div><span id="streakNum" class="streaknum">0</span><span class="streaklbl dim">day<br>streak</span></div>
-      <div id="pts" class="pts"></div>
+  <div class="topbar"><span id="slideName" class="label">Overview</span><span id="miniClock" class="miniclock"></span></div>
+
+  <div class="slide" id="s1">
+    <div id="clock" class="clock">--:--</div>
+    <div id="date" class="date">&nbsp;</div>
+    <div class="ov-streak"><div id="ovStreak" class="huge accent">0</div><div class="label">day streak</div></div>
+    <div class="ov-pri"><div class="label">Today's #1 priority</div><div id="ovPri" class="pri">&nbsp;</div></div>
+    <div class="ov-row">
+      <div class="cell c1"><div class="label">Points today</div><div id="ovPts" class="mid">0/10</div></div>
+      <div class="cell c2"><div class="label">Next</div><div id="ovNext" class="mid ell">&nbsp;</div></div>
     </div>
-    <div id="check" class="check"></div>
+    <div id="mantra" class="mantra fade">&nbsp;</div>
   </div>
-  <div class="panel p-course" id="pCourse">
-    <div class="ptitle">Courses</div>
-    <div id="course"></div>
+
+  <div class="slide" id="s2">
+    <div id="sched" class="sched"></div>
+    <div class="tmr"><div class="label">Tomorrow</div><div id="tmr"></div></div>
   </div>
-  <div class="panel p-money" id="pMoney">
-    <div class="ptitle" id="moneyTitle">Money</div>
-    <div id="money"></div>
+
+  <div class="slide" id="s3">
+    <div id="habits" class="habits"></div>
+    <div class="side">
+      <div class="label">Streak</div><div id="hStreak" class="huge accent">0</div>
+      <div class="kv"><span class="label">Week</span><span id="hWeek" class="mid">0/60</span></div>
+      <div class="kv"><span class="label">Month</span><span id="hMonth" class="mid">0/240</span></div>
+      <div class="kv"><span class="label">Courses</span><span id="hCourses" class="mid">0/14</span></div>
+      <div id="hCourse" class="small ell2">&nbsp;</div>
+    </div>
   </div>
+
+  <div class="slide" id="s4">
+    <div id="woDay" class="label">&nbsp;</div>
+    <div id="woName" class="wname">&nbsp;</div>
+    <div id="woTag" class="small">&nbsp;</div>
+    <div id="woList" class="wlist"></div>
+    <div class="side">
+      <div class="label">Gym streak</div><div id="woStreak" class="huge accent">0</div>
+      <div class="label">This week</div><div id="woWeek" class="mid">0/4</div>
+      <div id="woPips" class="pips"></div>
+      <div id="woDone" class="small">&nbsp;</div>
+    </div>
+  </div>
+
+  <div class="slide" id="s5">
+    <div class="label">Emergency fund</div>
+    <div id="efAmt" class="huge">&nbsp;</div>
+    <div class="bar"><div id="efFill" class="fill"></div></div>
+    <div id="efNote" class="small">&nbsp;</div>
+    <div class="fin-row">
+      <div class="cell f1"><div class="label">Spent today</div><div id="fSpent" class="mid">&nbsp;</div></div>
+      <div class="cell f2"><div class="label">Tips this week</div><div id="fTips" class="mid">&nbsp;</div></div>
+      <div class="cell f3"><div class="label">Shift income this week</div><div id="fShift" class="mid">&nbsp;</div></div>
+    </div>
+    <div id="fDebt" class="small debt">&nbsp;</div>
+    <div id="fAsOf" class="small asof">&nbsp;</div>
+  </div>
+
+  <div class="nav"><span id="dots"></span><span id="pause" class="pause"><i></i><i></i></span></div>
 </div>
 <div id="night" class="night"><div id="nightClock" class="nclock"></div></div>
 <script src="app.js"></script>

@@ -1,6 +1,6 @@
-/* Jarvis mirror screen. ES5 only, for old TV browsers. */
+/* Jarvis minimalist slides. ES5 only, for old TV browsers. */
 (function () {
-  var DATA = null, EVENTS = null, quoteIdx = 0, rot = { course: 0, money: 0 };
+  var DATA = null, EVENTS = null, quoteIdx = 0, WXT = '';
   var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function $(id) { return document.getElementById(id); }
@@ -46,214 +46,237 @@
   }
   function sameDay(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
 
+
+  var SLIDES = ['Overview', 'Schedule', 'Habits', 'Workout', 'Finances'];
+  var ROTATE_MS = 20000, IDLE_MS = 60000, cur = 0, paused = false, manualPause = false, lastKey = 0, rotTimer = null;
+
   /* ---------- clock + night mode ---------- */
   function tickClock() {
     var d = new Date(), h = d.getHours(), h12 = h % 12 || 12;
     $('clock').innerHTML = h12 + '<span class="colon">:</span>' + pad(d.getMinutes()) + '<span class="ampm">' + (h >= 12 ? 'PM' : 'AM') + '</span>';
-    $('date').innerHTML = DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate();
+    $('miniClock').innerHTML = h12 + ':' + pad(d.getMinutes()) + ' ' + (h >= 12 ? 'PM' : 'AM');
+    $('date').innerHTML = DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate() + WXT;
     var deep = h >= 1 && h < 5, dimmed = h >= 21 || h < 6;
     $('night').style.display = deep ? 'block' : 'none';
     if (deep) $('nightClock').innerHTML = h12 + ':' + pad(d.getMinutes());
+    document.body.className = document.body.className.replace(/ ?dark/g, '') + (dimmed ? ' dark' : '');
     $('stage').style.opacity = dimmed ? '0.55' : '1';
     if (h === 3 && d.getMinutes() === 0 && d.getSeconds() < 2) location.reload();
   }
-
-  /* ---------- mantra ---------- */
   function nextQuote(first) {
-    var q = (DATA && DATA.quotes && DATA.quotes.length) ? DATA.quotes : ['Never miss twice.'];
-    var el = $('mantra');
+    var q = (DATA && DATA.quotes && DATA.quotes.length) ? DATA.quotes : ['Never miss twice.'], el = $('mantra');
     if (first) { el.innerHTML = esc(q[quoteIdx % q.length]); return; }
     el.style.opacity = '0';
     setTimeout(function () { quoteIdx++; el.innerHTML = esc(q[quoteIdx % q.length]); el.style.opacity = '1'; }, 600);
   }
-
-  /* ---------- weather (Open-Meteo, no key) ---------- */
-  var WX = { 0: 'Clear', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Cloudy', 45: 'Fog', 48: 'Fog', 51: 'Drizzle', 53: 'Drizzle', 55: 'Drizzle',
-    56: 'Freezing drizzle', 57: 'Freezing drizzle', 61: 'Rain', 63: 'Rain', 65: 'Heavy rain', 66: 'Freezing rain', 67: 'Freezing rain',
-    71: 'Snow', 73: 'Snow', 75: 'Heavy snow', 77: 'Snow grains', 80: 'Showers', 81: 'Showers', 82: 'Heavy showers', 85: 'Snow showers',
-    86: 'Snow showers', 95: 'Thunderstorm', 96: 'Thunderstorm', 99: 'Thunderstorm' };
   function loadWeather() {
-    var c = (DATA && DATA.config) || {}, lat = c.lat || 42.03, lon = c.lon || -93.62;
-    getJSON('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
-      '&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
-      '&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FChicago&forecast_days=1', function (d) {
-        safe(function () {
-          var cw = d.current_weather;
-          $('temp').innerHTML = Math.round(cw.temperature) + '&deg;';
-          $('cond').innerHTML = esc(WX[cw.weathercode] || 'Weather');
-          $('hilo').innerHTML = 'H ' + Math.round(d.daily.temperature_2m_max[0]) + '&deg; L ' + Math.round(d.daily.temperature_2m_min[0]) +
-            '&deg;';
-        });
-      }, function () { $('cond').innerHTML = 'Weather offline'; $('hilo').innerHTML = esc(c.city || 'Ames, IA'); });
+    var c = (DATA && DATA.config) || {};
+    getJSON('https://api.open-meteo.com/v1/forecast?latitude=' + (c.lat || 42.03) + '&longitude=' + (c.lon || -93.62) +
+      '&current_weather=true&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=1', function (d) {
+        safe(function () { WXT = ' &middot; ' + Math.round(d.current_weather.temperature) + '&deg;'; tickClock(); });
+      }, function () { WXT = ''; });
   }
 
-  /* ---------- schedule ---------- */
-  function todaysItems(now) {
-    var list = [], i, e, s, en;
-    var evs = (EVENTS && EVENTS.events) || [];
+  /* ---------- events ---------- */
+  function itemsFor(day) {
+    var list = [], i, e, s, en, evs = (EVENTS && EVENTS.events) || [];
     for (i = 0; i < evs.length; i++) {
-      e = evs[i]; s = parseISO(e.start); en = parseISO(e.end) || s;
-      if (s && (sameDay(s, now) || (s < now && en > now))) list.push({ title: e.title, s: s, e: en, allDay: !!e.allDay });
+      e = evs[i]; if (e.allDay) continue;
+      s = parseISO(e.start); en = parseISO(e.end) || s;
+      if (s && sameDay(s, day)) list.push({ title: e.title, s: s, e: en });
     }
-    if (!list.length && DATA && DATA.defaultSchedule) {   /* fallback when no calendar data for today */
+    if (!list.length && DATA && DATA.defaultSchedule) {
       for (i = 0; i < DATA.defaultSchedule.length; i++) {
         e = DATA.defaultSchedule[i];
-        if (e.days && e.days.indexOf(now.getDay()) < 0) continue;
-        s = new Date(now.getFullYear(), now.getMonth(), now.getDate(), +e.start.split(':')[0], +e.start.split(':')[1]);
-        en = new Date(now.getFullYear(), now.getMonth(), now.getDate(), +e.end.split(':')[0], +e.end.split(':')[1]);
+        if (e.days && e.days.indexOf(day.getDay()) < 0) continue;
+        s = new Date(day.getFullYear(), day.getMonth(), day.getDate(), +e.start.split(':')[0], +e.start.split(':')[1]);
+        en = new Date(day.getFullYear(), day.getMonth(), day.getDate(), +e.end.split(':')[0], +e.end.split(':')[1]);
         list.push({ title: e.title, s: s, e: en });
       }
     }
     list.sort(function (a, b) { return a.s - b.s; });
     return list;
   }
-  function upcoming(now) {
-    var evs = (EVENTS && EVENTS.events) || [], best = null, i, s;
-    for (i = 0; i < evs.length; i++) {
-      if (evs[i].allDay) continue;
-      s = parseISO(evs[i].start);
-      if (s && s > now && (!best || s < best.s)) best = { title: evs[i].title, s: s, e: parseISO(evs[i].end) };
-    }
-    return best;
+  function tomorrow(now) { return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1); }
+  function nextItem(now) {
+    var t = itemsFor(now).concat(itemsFor(tomorrow(now))), i;
+    for (i = 0; i < t.length; i++) if (t[i].s <= now && t[i].e > now) return { it: t[i], now: true };
+    for (i = 0; i < t.length; i++) if (t[i].s > now) return { it: t[i], now: false };
+    return null;
   }
+
+  /* ---------- 1 overview ---------- */
+  function renderOverview() {
+    var s = DATA.streak || {}, p = DATA.points || {}, t = DATA.today || {}, now = new Date();
+    $('ovStreak').innerHTML = s.streak_current || 0;
+    $('ovPri').innerHTML = t.priority ? esc(t.priority) : '<span class="edit">EDIT ME</span>';
+    $('ovPts').innerHTML = (p.today || 0) + '<span class="small">/' + (p.dailyTarget || 10) + '</span>';
+    var n = nextItem(now);
+    $('ovNext').innerHTML = n ? (n.now ? '<span class="accent">Now</span> ' : '<span class="accent">' + fmtTime(n.it.s).replace(' ', '&nbsp;') +
+      (sameDay(n.it.s, now) ? '' : ' tmrw') + '</span> ') + esc(n.it.title) : 'Open day';
+  }
+
+  /* ---------- 2 schedule ---------- */
   function renderSchedule() {
-    var now = new Date(), items = todaysItems(now), timed = [], i, it, cur = null, next = null;
-    for (i = 0; i < items.length; i++) if (!items[i].allDay) timed.push(items[i]);
-    for (i = 0; i < timed.length; i++) {
-      it = timed[i];
-      if (it.s <= now && it.e > now && !cur) cur = it;
-      if (it.s > now && !next) next = it;
+    var now = new Date(), items = itemsFor(now), i, it, curI = -1, nxtI = -1, out = '';
+    for (i = 0; i < items.length; i++) {
+      if (items[i].s <= now && items[i].e > now && curI < 0) curI = i;
+      if (items[i].s > now && nxtI < 0) nxtI = i;
     }
-    if (!next) next = upcoming(now);
-    var nu = next || cur, html;
-    if (nu) {
-      var mins = Math.round((nu.s - now) / 60000), inTxt;
-      if (nu === cur || mins <= 0) inTxt = 'NOW';
-      else if (mins < 60) inTxt = 'in ' + mins + ' min';
-      else if (mins < 24 * 60) inTxt = 'in ' + Math.floor(mins / 60) + 'h ' + pad(mins % 60) + 'm';
-      else inTxt = DAYS[nu.s.getDay()];
-      html = '<div class="nu-title">' + esc(nu.title) + '</div><div class="nu-when"><span class="nu-in">' + inTxt + '</span>' +
-        ' <span class="dim">&middot; ' + fmtTime(nu.s) + (sameDay(nu.s, now) ? '' : ' ' + DAYS[nu.s.getDay()].slice(0, 3)) + '</span></div>' +
-        (cur && next ? '<div class="nu-when dim">Now: ' + esc(cur.title) + '</div>' : '');
-    } else html = '<div class="nu-title">Rest. Reset.</div><div class="nu-when dim">Nothing else on the calendar</div>';
-    $('nextup').innerHTML = html;
-    /* rows: up to 6, starting one before the current/next item */
-    var start = 0;
-    for (i = 0; i < timed.length; i++) { if (timed[i].e > now) { start = Math.max(0, i - 1); break; } start = Math.max(0, timed.length - 6); }
-    var rows = timed.slice(start, start + 6), out = '';
+    var focus = curI >= 0 ? curI : (nxtI >= 0 ? nxtI : items.length);
+    var start = Math.max(0, Math.min(focus - 1, items.length - 6));
+    var rows = items.slice(start, start + 6);
     for (i = 0; i < rows.length; i++) {
-      it = rows[i];
-      var cls = it.e <= now ? ' past' : (it.s <= now ? ' now' : '');
-      out += '<div class="row' + cls + '"><span class="t">' + fmtTime(it.s) + '</span><span class="n">' + esc(it.title) + '</span></div>';
+      it = rows[i]; var idx = start + i, cls = '', tag = '';
+      if (idx === curI) { cls = ' now'; tag = 'NOW'; }
+      else if (idx === nxtI && curI < 0) { cls = ' now'; tag = 'NEXT'; }
+      else if (idx === nxtI) tag = 'NEXT';
+      else if (it.e <= now) cls = ' past';
+      out += '<div class="row' + cls + '"><span class="t">' + fmtTime(it.s) + '</span><span class="n">' + esc(it.title) + '</span>' +
+        (tag ? '<span class="tag">' + tag + '</span>' : '') + '</div>';
     }
     $('sched').innerHTML = out || '<div class="empty">Open day. Make it count.</div>';
+    var tm = itemsFor(tomorrow(now)), t2 = '';
+    for (i = 0; i < tm.length && i < 3; i++) t2 += '<div class="trow"><div class="tt">' + fmtTime(tm[i].s) + '</div><div class="tn">' + esc(tm[i].title) + '</div></div>';
+    $('tmr').innerHTML = t2 || '<div class="trow"><div class="tn">Nothing yet</div></div>';
   }
 
-  /* ---------- streak + checklist ---------- */
-  function renderStreak() {
-    var s = DATA.streak || {}, p = DATA.points || {};
-    $('streakNum').innerHTML = s.streak_current || 0;
-    $('pts').innerHTML = 'Today <b>' + (p.today || 0) + '/' + (p.dailyTarget || 10) + '</b> pts<br>' +
-      'Week <b>' + (p.week || 0) + '/' + (p.weeklyTarget || 60) + '</b><br>' +
-      'Month <b>' + (p.month || 0) + '/' + (p.monthlyTarget || 240) + '</b>';
-    var c = DATA.checklist || [], out = '', i;
-    for (i = 0; i < c.length && i < 6; i++) {
-      out += '<div class="ci' + (c[i].done ? ' done' : '') + (c[i].must ? ' must' : '') + '"><span class="box">' +
-        (c[i].done ? '&#10003;' : '') + '</span><span class="lbl">' + esc(c[i].text) + '</span></div>';
-    }
-    $('check').innerHTML = out;
+  /* ---------- 3 habits ---------- */
+  function renderHabits() {
+    var c = DATA.checklist || [], out = '', i, p = DATA.points || {}, s = DATA.streak || {};
+    for (i = 0; i < c.length && i < 5; i++)
+      out += '<div class="hab' + (c[i].done ? ' done' : '') + '"><span class="mark">' + (c[i].done ? '&#10003;' : '') + '</span><span class="ht">' + esc(c[i].text) + '</span></div>';
+    $('habits').innerHTML = out;
+    $('hStreak').innerHTML = s.streak_current || 0;
+    $('hWeek').innerHTML = (p.week || 0) + '<span class="small">/' + (p.weeklyTarget || 60) + '</span>';
+    $('hMonth').innerHTML = (p.month || 0) + '<span class="small">/' + (p.monthlyTarget || 240) + '</span>';
+    var cs = DATA.courses || [], done = 0, nx = null;
+    for (i = 0; i < cs.length; i++) { if (cs[i].done) done++; else if (!nx) nx = cs[i]; }
+    $('hCourses').innerHTML = done + '<span class="small">/' + cs.length + '</span>';
+    $('hCourse').innerHTML = nx ? 'Now: ' + esc(nx.name) : 'All done';
   }
 
-  /* ---------- courses (rotates two views) ---------- */
-  function renderCourse() {
-    var cs = DATA.courses || [], done = 0, hrs = 0, hdone = 0, nxt = null, i;
-    for (i = 0; i < cs.length; i++) {
-      hrs += cs[i].hours || 0;
-      if (cs[i].done) { done++; hdone += cs[i].hours || 0; } else if (!nxt) nxt = cs[i];
-    }
-    var pct = cs.length ? Math.round(done * 100 / cs.length) : 0, html;
-    if (rot.course % 2 === 0 || !nxt) {
-      html = '<div class="big">' + done + '/' + cs.length + '</div><div class="lbl2">courses done</div>' +
-        '<div class="bar"><div class="fill" data-w="' + pct + '"></div></div>' +
-        '<div class="lbl2">' + Math.round(hdone) + ' of ' + Math.round(hrs) + ' hours</div>';
+  /* ---------- 4 workout ---------- */
+  function renderWorkout() {
+    var w = DATA.workout || {}, d = new Date(), day = (w.plan || {})[String(d.getDay())], i, out = '';
+    $('woDay').innerHTML = DAYS[d.getDay()] + (day ? ' &middot; ' + esc(w.time || '5:00 to 6:15 AM') : '');
+    if (day) {
+      $('woName').innerHTML = esc(day.name);
+      $('woTag').innerHTML = w.placeholder ? '<span class="warn">PLACEHOLDER</span> split. Edit workout in data.json' : (w.notes ? esc(w.notes) : '&nbsp;');
+      var ex = day.exercises || [];
+      for (i = 0; i < ex.length && i < 5; i++) out += '<div class="wi">' + (/EDIT ME/.test(ex[i]) ? '<span class="edit">' + esc(ex[i]) + '</span>' : esc(ex[i])) + '</div>';
     } else {
-      html = '<div class="lbl2">Now studying</div><div class="txt">' + esc(nxt.name) + '</div>' +
-        '<div class="lbl2">' + esc(nxt.provider) + '</div><div class="lbl2">~' + nxt.hours + ' h &middot; due ' + esc(nxt.targetMonth) + '</div>';
+      $('woName').innerHTML = 'Rest day';
+      $('woTag').innerHTML = 'Recover. Walk. Sleep.';
     }
-    $('course').innerHTML = html; fillBars($('course'));
+    $('woList').innerHTML = out;
+    $('woStreak').innerHTML = w.gymStreak || 0;
+    var tgt = w.targetWeek || 4, n = w.sessionsWeek || 0, pips = '';
+    $('woWeek').innerHTML = n + '<span class="small">/' + tgt + '</span>';
+    for (i = 0; i < tgt; i++) pips += '<span class="pip' + (i < n ? ' f' : '') + '"></span>';
+    $('woPips').innerHTML = pips;
+    $('woDone').innerHTML = w.doneToday ? '&#10003; Done today' : (day ? 'Not logged yet' : '&nbsp;');
   }
 
-  /* ---------- money (rotates goal cards) ---------- */
-  function renderMoney() {
-    var m = DATA.money || {}, g = m.goals || [], b = m.balances || [], cards = [], i, html;
-    var asOf = m.asOf ? parseISO(m.asOf) : null;
-    $('moneyTitle').innerHTML = 'Money' + (asOf ? ' &middot; as of ' + (asOf.getMonth() + 1) + '/' + asOf.getDate() : '');
-    var stale = m.stale ? '<div class="lbl2 warn">Stale: update ledger</div>' : '';
-    for (i = 0; i < g.length; i++) {
-      var x = g[i], pct;
-      if (x.kind === 'payoff') pct = null;
-      else pct = (x.current != null && x.target) ? Math.min(100, Math.round(x.current * 100 / x.target)) : 0;
-      cards.push(stale + '<div class="lbl2">' + esc(x.label) + '</div><div class="amt">' + money(x.current) + '</div>' +
-        (pct === null ? '<div class="lbl2">to $0</div>' :
-          '<div class="bar"><div class="fill" data-w="' + pct + '"></div></div><div class="lbl2">of ' + money(x.target) + ' floor</div>') +
-        (x.note ? '<div class="lbl2' + (pct !== null && pct < 100 ? ' warn' : '') + '">' + esc(x.note) + '</div>' : ''));
-    }
-    if (b.length) {
-      html = stale;
-      for (i = 0; i < b.length && i < 4; i++) html += '<div class="lbl2">' + esc(b[i].label) + ': <span style="color:#F5F5F0">' + money(b[i].value) + '</span></div>';
-      cards.push(html);
-    }
-    $('money').innerHTML = cards.length ? cards[rot.money % cards.length] : '<div class="lbl2 edit">EDIT ME</div>';
-    fillBars($('money'));
-  }
-  function fillBars(root) {
-    var f = root.getElementsByTagName('div'), i;
-    setTimeout(function () {
-      for (i = 0; i < f.length; i++) if (f[i].className === 'fill') f[i].style.width = f[i].getAttribute('data-w') + '%';
-    }, 50);
+  /* ---------- 5 finances (never account numbers) ---------- */
+  function goal(label) { var g = (DATA.money && DATA.money.goals) || [], i; for (i = 0; i < g.length; i++) if (g[i].label === label) return g[i]; return {}; }
+  function renderFinances() {
+    var m = DATA.money || {}, ef = goal('Emergency fund'), debt = goal('Debt still to pay'), tgt = ef.target || 1000;
+    $('efAmt').innerHTML = money(ef.current) + '<span class="small"> of ' + money(tgt) + '</span>';
+    var pct = (ef.current != null && tgt) ? Math.min(100, Math.round(ef.current * 100 / tgt)) : 0;
+    setTimeout(function () { $('efFill').style.width = pct + '%'; }, 50);
+    $('efNote').innerHTML = ef.current == null ? '&nbsp;' : (ef.current < tgt ? '<span class="warn">Under by ' + money(tgt - ef.current) + '</span>. Refill first.' : 'Floor met.');
+    var spent = m.spending_today != null ? m.spending_today : null;
+    $('fSpent').innerHTML = money(spent);
+    $('fTips').innerHTML = money(m.tips_week);
+    var shift = m.shift_income_week != null ? m.shift_income_week : (m.ledger_income_week ? m.ledger_income_week : null);
+    $('fShift').innerHTML = money(shift);
+    $('fDebt').innerHTML = 'Debt still to pay: ' + money(debt.current);
+    var a = m.asOf ? parseISO(m.asOf) : null;
+    $('fAsOf').innerHTML = a ? (m.stale ? '<span class="warn">Stale</span> ' : '') + 'Ledger as of ' + MONTHS[a.getMonth()] + ' ' + a.getDate() : 'Ledger: EDIT ME';
   }
 
   function renderAll() {
     if (!DATA) return;
-    safe(renderSchedule); safe(renderStreak); safe(renderCourse); safe(renderMoney);
+    safe(renderOverview); safe(renderSchedule); safe(renderHabits); safe(renderWorkout); safe(renderFinances);
   }
   function loadData() {
-    getJSON('data.json', function (d) { DATA = d; renderAll(); }, function () { renderAll(); });
-    var ef = (DATA && DATA.config && DATA.config.eventsFile) || 'events.json';
-    getJSON(ef, function (d) { EVENTS = d; safe(renderSchedule); }, function () { safe(renderSchedule); });
+    getJSON('data.json', function (d) { DATA = d; renderAll(); }, renderAll);
+    getJSON((DATA && DATA.config && DATA.config.eventsFile) || 'events.json', function (d) { EVENTS = d; renderAll(); }, renderAll);
   }
 
-  /* ---------- scale 1920x1080 design to any screen + burn-in drift ---------- */
+  /* ---------- slides + remote ---------- */
+  function show(i) {
+    cur = (i + SLIDES.length) % SLIDES.length;
+    var k, dots = '';
+    for (k = 0; k < SLIDES.length; k++) {
+      $('s' + (k + 1)).className = 'slide' + (k === cur ? ' on' : '');
+      dots += '<span class="dot' + (k === cur ? ' on' : '') + '"></span>';
+    }
+    $('dots').innerHTML = dots;
+    $('slideName').innerHTML = cur === 0 ? '&nbsp;' : SLIDES[cur];
+    $('miniClock').style.visibility = cur === 0 ? 'hidden' : 'visible';
+    if (cur === 1) safe(renderSchedule);
+    if (cur === 0) safe(renderOverview);
+  }
+  function setPaused(p) {
+    paused = p;
+    var b = $('stage');
+    b.className = p ? 'paused' : '';
+  }
+  function rotTick() {
+    var now = new Date().getTime();
+    if (paused && !manualPause && now - lastKey >= IDLE_MS) setPaused(false);
+    if (manualPause && now - lastKey >= IDLE_MS) { manualPause = false; setPaused(false); }
+    if (!paused && now - lastSwitch >= ROTATE_MS) { show(cur + 1); lastSwitch = now; }
+  }
+  var lastSwitch = new Date().getTime();
+  function onKey(e) {
+    e = e || window.event;
+    var k = e.keyCode || e.which, key = e.key || '', now = new Date().getTime(), handled = true;
+    if (k === 39 || k === 40 || key === 'ArrowRight' || key === 'ArrowDown') show(cur + 1);
+    else if (k === 37 || k === 38 || key === 'ArrowLeft' || key === 'ArrowUp') show(cur - 1);
+    else if (k === 13 || k === 32 || key === 'Enter') {
+      manualPause = !paused; lastKey = now; setPaused(!paused); lastSwitch = now;
+      if (e.preventDefault) e.preventDefault(); return false;
+    }
+    else if (k >= 49 && k <= 53) show(k - 49);
+    else if (k >= 97 && k <= 101) show(k - 97);
+    else handled = false;
+    if (handled) {
+      lastKey = now; lastSwitch = now;
+      if (!paused) { setPaused(true); manualPause = false; }
+      if (e.preventDefault) e.preventDefault();
+      return false;
+    }
+  }
+  if (document.addEventListener) document.addEventListener('keydown', onKey, false); else document.onkeydown = onKey;
+  window.jarvisShow = show; /* test hook */
+
+  /* ---------- scale 1920x1080 to any screen + burn-in drift ---------- */
   var DX = 0, DY = 0;
   function fit() {
     var w = window.innerWidth || document.documentElement.clientWidth || 1920,
         h = window.innerHeight || document.documentElement.clientHeight || 1080,
         s = Math.min(w / 1920, h / 1080), st = $('stage').style;
-    var ox = Math.round((w - 1920 * s) / 2) + DX, oy = Math.round((h - 1080 * s) / 2) + DY;
-    var t = 'translate(' + ox + 'px,' + oy + 'px) scale(' + s + ')';
+    var t = 'translate(' + (Math.round((w - 1920 * s) / 2) + DX) + 'px,' + (Math.round((h - 1080 * s) / 2) + DY) + 'px) scale(' + s + ')';
     st.webkitTransform = t; st.transform = t;
   }
   window.onresize = fit;
-  function drift() {
-    DX = Math.round(Math.random() * 12 - 6); DY = Math.round(Math.random() * 12 - 6); fit();
-    var day = new Date().getDate(), o = (day % 17) - 8;
-    $('mantra').style.left = o + 'px'; $('hilo').style.left = (-o) + 'px';
-  }
+  function drift() { DX = Math.round(Math.random() * 12 - 6); DY = Math.round(Math.random() * 12 - 6); fit(); }
 
   function start() {
     if (/still=1/.test(location.search)) document.body.className += ' no-motion';
-    var t0 = new Date().getTime(), raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
-    if (raf) raf(function () { if (new Date().getTime() - t0 > 50) document.body.className += ' no-motion'; });
-    var ps = ['pClock', 'pMantra', 'pWeather', 'pSched', 'pStreak', 'pCourse', 'pMoney'], i;
-    for (i = 0; i < ps.length; i++) (function (el, k) { setTimeout(function () { el.className += ' in'; }, 60 * k); })($(ps[i]), i);
+    var m = /slide=(\d)/.exec(location.search);
+    show(m ? +m[1] - 1 : 0);
+    if (/pause=1/.test(location.search)) { manualPause = true; lastKey = new Date().getTime(); setPaused(true); }
     tickClock(); setInterval(tickClock, 1000);
     getJSON('data.json', function (d) { DATA = d; nextQuote(true); loadWeather(); loadData(); },
-      function () { DATA = {}; nextQuote(true); loadWeather(); loadData(); });
-    var mins = 5;
-    setInterval(function () { loadData(); loadWeather(); }, mins * 60000);
-    setInterval(function () { safe(renderSchedule); }, 30000);
+      function () { DATA = {}; nextQuote(true); loadData(); });
+    setInterval(function () { loadData(); loadWeather(); }, 5 * 60000);
+    setInterval(function () { safe(renderSchedule); safe(renderOverview); }, 30000);
     setInterval(function () { nextQuote(false); }, 30000);
-    setInterval(function () { rot.course++; rot.money++; safe(renderCourse); safe(renderMoney); }, 15000);
+    setInterval(rotTick, 1000);
     setInterval(drift, 5 * 60000); drift();
   }
   start();
