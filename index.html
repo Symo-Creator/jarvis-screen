@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920, height=1080">
+<title>Jarvis</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <div class="panel p-clock" id="pClock">
+    <div id="clock" class="clock">--<span class="colon">:</span>--<span id="ampm" class="ampm"></span></div>
+    <div id="date" class="date dim">&nbsp;</div>
+  </div>
+  <div class="panel p-mantra" id="pMantra"><div id="mantra" class="mantra fade">&nbsp;</div></div>
+  <div class="panel p-weather" id="pWeather">
+    <div id="temp" class="temp">--&deg;</div>
+    <div class="wx-side"><div id="cond" class="cond">Weather</div><div id="hilo" class="hilo dim">Ames, IA</div></div>
+  </div>
+  <div class="panel p-sched" id="pSched">
+    <div class="ptitle">Next up</div>
+    <div id="nextup" class="nextup"><div class="nu-title">Loading...</div></div>
+    <div class="ptitle mt">Today</div>
+    <div id="sched" class="sched"></div>
+  </div>
+  <div class="panel p-streak" id="pStreak">
+    <div class="streak-left">
+      <div class="ptitle">Streak</div>
+      <div><span id="streakNum" class="streaknum">0</span><span class="streaklbl dim">day<br>streak</span></div>
+      <div id="pts" class="pts"></div>
+    </div>
+    <div id="check" class="check"></div>
+  </div>
+  <div class="panel p-course" id="pCourse">
+    <div class="ptitle">Courses</div>
+    <div id="course"></div>
+  </div>
+  <div class="panel p-money" id="pMoney">
+    <div class="ptitle" id="moneyTitle">Money</div>
+    <div id="money"></div>
+  </div>
+</div>
+<div id="night" class="night"><div id="nightClock" class="nclock"></div></div>
+<script src="app.js"></script>
+</body>
+</html>

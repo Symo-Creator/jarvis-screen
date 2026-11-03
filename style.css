@@ -1,0 +1,68 @@
+@font-face{font-family:'SyneJ';src:url(fonts/syne-latin-800-normal.woff) format('woff');font-weight:800}
+@font-face{font-family:'GroteskJ';src:url(fonts/space-grotesk-latin-600-normal.woff) format('woff');font-weight:600}
+@font-face{font-family:'PlexJ';src:url(fonts/ibm-plex-mono-latin-500-normal.woff) format('woff');font-weight:500}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#0B0B0C;color:#F5F5F0;
+ font-family:'GroteskJ','Helvetica Neue',Arial,sans-serif;font-weight:600;font-size:36px}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;-webkit-transform-origin:0 0;transform-origin:0 0;
+ -webkit-transition:opacity 1s;transition:opacity 1s}
+.panel{position:absolute;background:#151517;border-radius:8px;border-top:3px solid #3A3A38;padding:32px;
+ -webkit-box-sizing:border-box;box-sizing:border-box;overflow:hidden;
+ opacity:0;-webkit-transform:translateY(12px);transform:translateY(12px);
+ -webkit-transition:opacity .5s ease-out,-webkit-transform .5s ease-out;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.panel.in{opacity:1;-webkit-transform:none;transform:none}
+.p-clock{left:64px;top:40px;width:600px;height:160px;padding:8px 32px}
+.p-mantra{left:688px;top:40px;width:476px;height:160px;padding:20px 28px}
+.p-weather{left:1188px;top:40px;width:668px;height:160px;padding:12px 32px}
+.p-sched{left:64px;top:216px;width:880px;height:824px}
+.p-streak{left:968px;top:216px;width:888px;height:400px}
+.p-course{left:968px;top:640px;width:432px;height:400px}
+.p-money{left:1424px;top:640px;width:432px;height:400px}
+.dim{color:#A8A8A0}
+.ptitle{font-size:32px;text-transform:uppercase;letter-spacing:.12em;color:#A8A8A0;line-height:40px;white-space:nowrap}
+.mt{margin-top:24px}
+.clock{font-family:'PlexJ',monospace;font-weight:500;font-size:112px;line-height:100px;height:100px;white-space:nowrap;overflow:hidden}
+.colon{color:#D6FF00}
+.ampm{font-size:48px;line-height:48px;vertical-align:baseline;margin-left:12px}
+.date{position:absolute;left:32px;bottom:6px;font-size:36px;line-height:44px;white-space:nowrap}
+.mantra{font-family:'SyneJ','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:48px;line-height:1.1;max-height:106px;overflow:hidden;position:relative}
+.fade{-webkit-transition:opacity .6s;transition:opacity .6s}
+.temp{float:left;font-family:'SyneJ','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:120px;line-height:136px;margin-right:32px}
+.wx-side{overflow:hidden;padding-top:22px;position:relative}
+.cond{font-size:40px;line-height:48px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hilo{font-size:36px;line-height:48px;white-space:nowrap}
+.nextup{margin-top:12px;border-left:12px solid #D6FF00;padding:8px 0 8px 28px;height:250px;-webkit-box-sizing:border-box;box-sizing:border-box}
+.nu-title{font-family:'SyneJ','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:56px;line-height:62px;max-height:124px;overflow:hidden}
+.nu-when{font-size:40px;line-height:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nu-in{color:#D6FF00}
+.sched{margin-top:8px;position:relative}
+.row{height:80px;line-height:80px;white-space:nowrap;overflow:hidden;border-bottom:2px solid #3A3A38;position:relative;padding-left:28px}
+.row .t{font-family:'PlexJ',monospace;font-weight:500;font-size:40px;color:#A8A8A0;display:inline-block;width:250px;vertical-align:top}
+.row .n{font-size:48px;display:inline-block;width:510px;overflow:hidden;text-overflow:ellipsis;vertical-align:top}
+.row.now .t{color:#F5F5F0}
+.row.now:before{content:'';position:absolute;left:0;top:20px;width:12px;height:40px;background:#D6FF00}
+.row.past{opacity:.45}
+.empty{font-size:40px;color:#A8A8A0;line-height:80px}
+.streak-left{float:left;width:330px}
+.streaknum{font-family:'SyneJ','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:160px;line-height:170px;color:#D6FF00;vertical-align:middle}
+.streaklbl{display:inline-block;font-size:36px;line-height:40px;vertical-align:middle;margin-left:14px}
+.pts{font-size:32px;line-height:42px;color:#A8A8A0;white-space:nowrap}
+.pts b{color:#F5F5F0}
+.check{overflow:hidden;padding-left:16px}
+.ci{height:56px;line-height:56px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:44px}
+.box{display:inline-block;width:44px;height:44px;border:4px solid #A8A8A0;border-radius:6px;vertical-align:middle;margin-right:20px;
+ -webkit-box-sizing:border-box;box-sizing:border-box;text-align:center;line-height:36px;font-size:36px;color:#0B0B0C}
+.ci.done{color:#A8A8A0}
+.ci.done .box{background:#D6FF00;border-color:#D6FF00}
+.ci.must .lbl{border-bottom:3px solid #3A3A38}
+.big{font-family:'SyneJ','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:96px;line-height:104px}
+.amt{font-family:'SyneJ','Helvetica Neue',Arial,sans-serif;font-weight:800;font-size:72px;line-height:80px;white-space:nowrap}
+.lbl2{font-size:32px;line-height:40px;color:#A8A8A0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.txt{font-size:36px;line-height:42px;max-height:84px;overflow:hidden}
+.bar{height:16px;background:#3A3A38;border-radius:8px;margin:12px 0;overflow:hidden}
+.fill{height:16px;background:#D6FF00;width:0;-webkit-transition:width .8s;transition:width .8s}
+.warn{color:#FF5A4D}
+.edit{color:#FF5A4D}
+.night{display:none;position:absolute;left:0;top:0;width:100%;height:100%;background:#000}
+.nclock{position:absolute;left:0;width:100%;text-align:center;top:42%;font-family:'PlexJ',monospace;font-size:120px;color:#5A5A55}
+body.no-motion .panel,body.no-motion .fade,body.no-motion .fill{-webkit-transition:none;transition:none;opacity:1;-webkit-transform:none;transform:none}
+body.no-motion #stage{-webkit-transition:none;transition:none}
