@@ -1,4 +1,4 @@
-/* Jarvis HUD wall screen. Plain ES5 for the old Vizio WebKit browser. */
+/* MENTIS HUD wall screen. Plain ES5 for the old Vizio WebKit browser. */
 (function(){
 'use strict';
 var A='#5CE1E6',W='#E8EEF0',D='#9AA7AB',BG='#050607',HL='#2A3236',BARC='#4A5A5E';
@@ -128,7 +128,7 @@ function stats(v){var days=0,best=0,run=0,gap=0,g=0,i;for(i=0;i<v.length;i++){if
 function dots(c,x,y){var s='',i;for(i=0;i<5;i++){s+='<div class="a" style="left:'+(x+i*64)+'px;top:'+(y+10)+'px;width:'+(i===c?40:14)+'px;height:14px;background:'+(i===c?A:HL)+'"></div>';}return s;}
 function syncText(){var u=(DATA&&(DATA.data_updated||DATA.updatedFromExcel))||'',m=String(u).match(/T(\d\d):(\d\d)/),s=m?'UPDATED '+m[1]+':'+m[2]:'';
   if(syncFail&&lastSync)s+=(s?' &middot; ':'')+'LAST SYNC '+hm(lastSync);return s;}
-function chrome(i){return ab('lab',64,48,0,'','JARVIS :: SYS.'+NAMES[i]+(priv()||Q.beta==='1'?' <span class="beta">BETA</span>':'')+' &nbsp;<span class="sync">'+syncText()+'</span>')+
+function chrome(i){return ab('lab',64,48,0,'','MENTIS :: SYS.'+NAMES[i]+(priv()||Q.beta==='1'?' <span class="beta">BETA</span>':'')+' &nbsp;<span class="sync">'+syncText()+'</span>')+
   ab('lab r',900,48,956,'','<span class="live"></span><span class="hdr">'+hdrText(now())+'</span>')+
   ab('lab',64,1000,0,'',dayTag()+' &middot; FRESH START '+startTag())+dots(i,810,1004)+
   ab('lab r',1356,1000,500,'','0'+(i+1)+' / 05 &nbsp; <span class="pg c">&#9660; 1/2</span>');}
@@ -293,7 +293,7 @@ function countUp(el,from){var to=+el.getAttribute('data-v'),pre=el.getAttribute(
 /* ---------- pause overlay ---------- */
 function drawPause(){var p=document.getElementById('pause');
   p.innerHTML='<div class="a" style="left:560px;top:250px;width:800px;height:580px;background:#0B0F10"></div>'+frame(560,250,800,580,'',A)+
-  ab('lab',620,290,0,'','JARVIS :: SYS.PAUSE')+ab('so',560,350,800,'text-align:center;font-size:120px','PAUSED')+
+  ab('lab',620,290,0,'','MENTIS :: SYS.PAUSE')+ab('so',560,350,800,'text-align:center;font-size:120px','PAUSED')+
   ab('lab',560,500,800,'text-align:center','SLIDE 0'+(cur+1)+' / 05 &middot; <span class="w">'+NAMES[cur]+'</span>')+dots(cur,810,556)+
   '<div class="a" style="left:620px;top:620px;width:680px;height:1px;background:'+HL+'"></div>'+
   ab('t',620,650,0,'line-height:56px;font-size:36px','<span class="c">OK</span> &nbsp;&nbsp;resume<br><span class="c">&#9664; &#9654;</span> &nbsp;slide &nbsp;&nbsp;&nbsp;&nbsp;<span class="c">&#9650; &#9660;</span> &nbsp;scroll');}
@@ -341,7 +341,7 @@ window.onresize=fit;
 /* ---------- data loading ---------- */
 function loadAll(first){var v=new Date().getTime();getJSON('data.json?v='+v,function(j,raw){DATA=j;RAWD=raw;HAB=null;lastSync=new Date();
     getJSON(((j.config&&j.config.eventsFile)||'events.json')+'?v='+v,function(ev,rawE){EVENTS=ev.events||[];RAWE=rawE;done();},function(){EVENTS=[];done();},true);},
-  function(){if(first){stage.innerHTML='<div class="a lab" style="left:64px;top:48px">JARVIS :: data.json could not load. Run sh serve.sh and open http://&lt;laptop-ip&gt;:8000/</div>';}});
+  function(){if(first){stage.innerHTML='<div class="a lab" style="left:64px;top:48px">MENTIS :: data.json could not load. Run sh serve.sh and open http://&lt;laptop-ip&gt;:8000/</div>';}});
   function done(){if(!paused||first)render();if(first){afterFirst();}}}
 function loadWx(){var c=(DATA&&DATA.config)||{},lat=c.lat||42.03,lon=c.lon||-93.62;
   getJSON('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current_weather=true&daily=temperature_2m_max&temperature_unit=fahrenheit&timezone=America%2FChicago&forecast_days=1',
