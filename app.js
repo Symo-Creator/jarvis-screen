@@ -37,8 +37,12 @@ function now(){return nowBase?new Date(nowBase+(new Date().getTime()-nowStart)):
 function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
 function hm(d){return pad(d.getHours())+':'+pad(d.getMinutes());}
 
-/* seeded random for SAMPLE history */
-var seed=3;function rnd(){seed=(seed*9301+49297)%233280;return seed/233280;}
+/* fresh start: day counter from DATA.fresh_start.date (no sample history) */
+function startDate(){var f=(DATA&&DATA.fresh_start&&DATA.fresh_start.date)||(DATA&&DATA.streak&&DATA.streak.start_date)||'2026-11-04',m=String(f).match(/(\d+)-(\d+)-(\d+)/);return m?new Date(+m[1],+m[2]-1,+m[3]):now();}
+function dayN(){var n=now(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());return Math.max(1,Math.round((t.getTime()-startDate().getTime())/864e5)+1);}
+function dayTag(){var len=(DATA&&DATA.fresh_start&&DATA.fresh_start.days)||30;return 'DAY '+dayN()+' OF '+len;}
+function startTag(){var d=startDate();return pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function empty(x,y,w,h,title,msg){return frame(x,y,w,h,title)+ab('so d',x,y+Math.round(h/2)-70,w,'font-size:72px;text-align:center',dayTag())+ab('lab',x,y+Math.round(h/2)+30,w,'text-align:center',msg||'HISTORY STARTS '+startTag()+'. LOG DAILY AND THIS FILLS IN.');}
 
 /* ---------- XHR ---------- */
 function getJSON(url,ok,fail,nocache){var x=new XMLHttpRequest();
@@ -90,9 +94,9 @@ function withStatus(items){var t=hm(now()),i;for(i=0;i<items.length;i++){var it=
 function wxText(short){if(!WX)return WXFAIL?'WX OFFLINE':'WX ...';
   var c=WX.code,n='CLEAR';if(c===1)n='MOSTLY CLEAR';else if(c===2)n='PARTLY CLOUDY';else if(c===3)n='OVERCAST';else if(c===45||c===48)n='FOG';else if(c>=51&&c<=57)n='DRIZZLE';else if(c>=61&&c<=67)n='RAIN';else if(c>=71&&c<=77)n='SNOW';else if(c>=80&&c<=82)n='SHOWERS';else if(c>=85&&c<=86)n='SNOW SHOWERS';else if(c>=95)n='STORM';
   return Math.round(WX.t)+'&deg;F '+n+(short?'':', HI '+Math.round(WX.hi)+'&deg;');}
-var HAB=null; /* SAMPLE 30-day history, today's column is real */
-function habits(){if(HAB)return HAB;seed=3;var keys=[['gym','gym'],['anki','anki'],['study','study'],['sales','sales'],['phone','phone-free']],p=[.57,.95,.8,.6,.7],cm=checklistMap(),out=[],i,d;
-  for(i=0;i<keys.length;i++){var v=[];for(d=0;d<29;d++){v.push(rnd()<p[i]?1+Math.floor(rnd()*3):0);}
+var HAB=null; /* 30-day grid: no stored history yet, only today's column is real */
+function habits(){if(HAB)return HAB;var keys=[['gym','gym'],['anki','anki'],['study','study'],['sales','sales'],['phone','phone-free']],cm=checklistMap(),out=[],i,d;
+  for(i=0;i<keys.length;i++){var v=[];for(d=0;d<29;d++){v.push(0);}
     v.push(cm[keys[i][0]]&&cm[keys[i][0]].done?3:0);out.push({k:keys[i][0],n:keys[i][1],v:v});}
   HAB=out;return out;}
 function runOf(v){var c=0,i;for(i=v.length-1;i>=0;i--){if(v[i])c++;else if(i===v.length-1)continue;else break;}return c;}
@@ -104,7 +108,7 @@ function syncText(){var u=(DATA&&(DATA.data_updated||DATA.updatedFromExcel))||''
   if(syncFail&&lastSync)s+=(s?' &middot; ':'')+'LAST SYNC '+hm(lastSync);return s;}
 function chrome(i){return ab('lab',64,48,0,'','JARVIS :: SYS.'+NAMES[i]+(priv()||Q.beta==='1'?' <span class="beta">BETA</span>':'')+' &nbsp;<span class="sync">'+syncText()+'</span>')+
   ab('lab r',1000,48,856,'','<span class="live"></span><span class="hdr">'+wxText(true)+' / AMES &middot; '+hm(now())+'</span>')+
-  ab('lab',64,1000,0,'','* = SAMPLE DATA')+dots(i,810,1004)+
+  ab('lab',64,1000,0,'',dayTag()+' &middot; FRESH START '+startTag())+dots(i,810,1004)+
   ab('lab r',1356,1000,500,'','0'+(i+1)+' / 05 &nbsp; <span class="pg c">&#9660; 1/2</span>');}
 
 /* ---------- slides ---------- */
@@ -159,39 +163,37 @@ function sSchedule(){var n=now(),items=withStatus(scheduleFor(n)),tm=scheduleFor
 
 function sHabits(){var h=habits(),n=now(),a='',b='',i,d,cw=36,gp=6,gx=420;
   var from=new Date(n.getTime()-29*864e5),mn=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  a+=frame(64,110,1792,850,'CONSISTENCY / LAST 30 DAYS *SAMPLE (TODAY = LIVE)');
+  a+=frame(64,110,1792,850,'CONSISTENCY / LAST 30 DAYS / '+dayTag());
   for(i=0;i<h.length;i++){a+=ab('t'+(h[i].k==='anki'?' c':''),110,200+i*130,0,'',h[i].n);}
   for(d=0;d<30;d++){var col='';for(i=0;i<h.length;i++){col+='<div class="a" style="left:0;top:'+(i*130)+'px;width:'+cw+'px;height:72px;background:'+RAMP[h[i].v[d]]+'"></div>';}
     a+='<div class="hcol" style="left:'+(gx+d*(cw+gp))+'px;top:190px">'+col+'</div>';}
   for(i=0;i<h.length;i++){a+=ab('so r'+(h[i].k==='anki'?' c':''),1690,196+i*130,140,'font-size:56px',runOf(h[i].v));}
   a+=ab('lab',gx,850,0,'',mn[from.getMonth()]+' '+pad(from.getDate()))+ab('lab',gx+30*(cw+gp)-300-gp,850,300,'text-align:right','TODAY')+ab('lab r',1500,160,330,'','RUN');
   a+=ab('lab',110,900,0,'','<span style="color:#3A7C80">&#9632;</span> partial &nbsp;<span class="c">&#9632;</span> full &middot; MAIN STREAK = ANKI (NEVER MISS TWICE)');
-  b+=frame(64,110,1792,560,'PER HABIT / 30 DAYS *SAMPLE');
+  b+=frame(64,110,1792,560,'PER HABIT / 30 DAYS / '+dayTag());
   b+=ab('lab',110,160,0,'','HABIT')+ab('lab r',640,160,220,'','DAYS')+ab('lab r',880,160,260,'','BEST RUN')+ab('lab r',1160,160,300,'','LONGEST GAP')+ab('lab r',1480,160,330,'','RATE');
   var tot=0;for(i=0;i<h.length;i++){var s=stats(h[i].v),y=220+i*84,c=h[i].k==='anki'?' c':'';tot+=s.days;
-    b+=ab('t'+c,110,y,0,'',h[i].n)+ab('t r',640,y,220,'',s.days+'/30')+ab('t r',880,y,260,'',s.best+' d')+ab('t r',1160,y,300,'',s.gap+' d')+ab('t r',1480,y,330,'',Math.round(100*s.days/30)+'%');}
+    b+=ab('t'+c,110,y,0,'',h[i].n)+ab('t r',640,y,220,'',s.days+'/'+Math.min(30,dayN()))+ab('t r',880,y,260,'',s.best+' d')+ab('t r',1160,y,300,'',s.gap+' d')+ab('t r',1480,y,330,'',Math.round(100*s.days/Math.min(30,dayN()))+'%');}
   var st=DATA.streak||{},pt=DATA.points||{};
   b+=frame(64,710,1792,250,'THIS MONTH / LIVE')+ab('so',110,770,0,'font-size:96px',cu(pt.month||0)+'<span class="lab"> / '+(pt.monthlyTarget||240)+' pts</span>')+
     ab('so',760,770,0,'font-size:96px',cu(st.hours_week||0)+'<span class="lab"> study h wk</span>')+ab('so c',1380,770,0,'font-size:96px',cu(st.streak_current||0)+'<span class="lab"> d streak</span>');
   return [a,b];}
 
-function sWorkout(){var w=DATA.workout||{},n=now(),a='',b='',i,d;seed=11;
+function sWorkout(){var w=DATA.workout||{},n=now(),a='',b='',i,d;
   a+=frame(64,110,680,850,'GYM STREAK')+ab('so c',110,150,0,'font-size:260px',cu(w.gymStreak||0))+
     ab('lab',120,440,0,'line-height:46px','GYM STREAK (DAYS)<br>THIS WEEK '+(w.sessionsWeek||0)+'/'+(w.targetWeek||4)+'<br>'+esc(String(w.time||'').toUpperCase()));
   var p=(w.plan||{})[String(n.getDay())],tl='';
   if(p){var ex=(p.exercises||[]).slice(0,2).join(', ');tl='gym.'+esc(clean(p.name))+(w.doneToday?' <span class="c">done</span>':' <span class="d">todo</span>')+'<br><span class="d">'+(/EDIT ME/.test(ex)?'<span class="warn">EDIT ME</span>':esc(cut(ex,22)))+'</span><br><span class="d">'+esc(cut(w.notes?'note: '+w.notes:'no note yet',24))+'</span>';}
   else{tl='<span class="d">rest day</span><br><span class="d">'+esc(cut(w.notes?'note: '+w.notes:'',24))+'</span>';}
   a+=ab('lab',120,650,0,'','TODAY'+(w.placeholder?' &middot; PLACEHOLDER PLAN':''))+ab('t',120,700,600,'line-height:58px;overflow:hidden',tl);
-  var heat=[],wi,lifted=0;for(wi=0;wi<12;wi++){var col=[];for(d=0;d<7;d++){col.push(d<4&&rnd()<.85?1+Math.floor(rnd()*3):0);if(col[d])lifted++;}heat.push(col);}
+  var heat=[],wi,lifted=0;for(wi=0;wi<12;wi++){var col=[];for(d=0;d<7;d++){col.push(wi===11&&d===(n.getDay()+6)%7&&w.doneToday?3:0);if(col[d])lifted++;}heat.push(col);}
   var hs='';for(wi=0;wi<12;wi++){var c='';for(d=0;d<7;d++){c+='<div class="a" style="left:0;top:'+(d*64)+'px;width:52px;height:52px;background:'+RAMP[heat[wi][d]]+'"></div>';}hs+='<div class="hcol" style="left:'+(910+wi*64)+'px;top:160px">'+c+'</div>';}
   var dl='MTWTFSS';for(d=0;d<7;d++){hs+=ab('lab',800,160+d*64+6,0,'',dl.charAt(d));}
-  a+=frame(760,110,1096,560,'LIFT CONSISTENCY / 12 WK *SAMPLE')+hs+ab('lab',800,610,0,'','LIFTED '+lifted+'/84 DAYS &middot; <span class="c">&#9632;</span> HEAVY <span style="color:#3A7C80">&#9632;</span> LIGHT');
-  var sess=[3,4,3,4,4,4,4,w.sessionsWeek||0],wk=['-7','-6','-5','-4','-3','-2','-1','NOW'],tops=[];for(i=0;i<7;i++)tops.push(String(sess[i]));tops.push((w.sessionsWeek||0)+'/'+(w.targetWeek||4));
-  a+=frame(760,710,1096,250,'SESSIONS / WK &middot; TARGET '+(w.targetWeek||4)+' *SAMPLE')+bars(800,736,1010,220,sess,wk,7,tops,.35);
-  var WK=['W38','W39','W40','W41','W42','W43','W44','W45'];
-  b+=frame(64,110,1792,520,'PR TREND / LB *SAMPLE')+lines(110,150,1700,450,[{v:[295,300,305,315,315,325,330,335],c:W,sw:2,n:'deadlift 335'},{v:[245,250,250,255,265,265,270,275],c:D,sw:2,n:'squat 275'},{v:[185,185,190,195,195,200,200,205],c:A,sw:3,n:'bench 205 PR'}],WK,170,350,260,[250,300]);
+  a+=frame(760,110,1096,560,'LIFT CONSISTENCY / 12 WK / '+dayTag())+hs+ab('lab',800,610,0,'','LIFTED '+lifted+'/84 DAYS &middot; <span class="c">&#9632;</span> HEAVY <span style="color:#3A7C80">&#9632;</span> LIGHT');
+  a+=frame(760,710,1096,250,'SESSIONS / WK &middot; TARGET '+(w.targetWeek||4))+ab('so c',800,770,0,'font-size:110px',(w.sessionsWeek||0)+'<span class="lab"> / '+(w.targetWeek||4)+' THIS WEEK</span>');
+  b+=empty(64,110,1792,520,'PR TREND / LB','NO LIFTS LOGGED YET. PRS SHOW UP HERE ONCE YOU LOG THEM.');
   b+=frame(64,670,1792,290,'RECENT SESSIONS');
-  var ses=[[DAYS[n.getDay()]+' '+pad(n.getMonth()+1)+'-'+pad(n.getDate()),p?clean(p.name):'rest',w.notes?esc(cut(w.notes,48)):(w.doneToday?'done, no note':'not logged yet'),w.doneToday?'DONE':'TODO'],['*SAMPLE','legs','squat 5x5 @ 235 &middot; rdl &middot; lunges',''],['*SAMPLE','pull','deadlift 3x5 @ 295 &middot; rows &middot; pull-ups','']];
+  var ses=[[DAYS[n.getDay()]+' '+pad(n.getMonth()+1)+'-'+pad(n.getDate()),p?clean(p.name):'rest',w.notes?esc(cut(w.notes,48)):(w.doneToday?'done, no note':'not logged yet'),w.doneToday?'DONE':'TODO'],['','','<span class="d">older sessions show here after you log them</span>',''],['','','','']];
   for(i=0;i<3;i++){var y=710+i*74;b+=ab('t '+(i===0?'c':'d'),110,y,0,'',ses[i][0])+ab('t',440,y,0,'',ses[i][1])+ab('lab',640,y+6,840,'overflow:hidden',ses[i][2])+ab('t c r',1500,y,310,'',ses[i][3]);}
   return [a,b];}
 
@@ -200,20 +202,16 @@ function sFinances(){if(priv()){return [frame(64,110,1792,850,'FINANCES / PUBLIC
   var cur_=ef?ef.current:0,floor=ef?ef.target:1000,stretch=2500,asof=mo.asOf||'';
   var stale=mo.stale?'<span class="warn">STALE: AS OF '+esc(asof.substr(5,2)+'/'+asof.substr(8,2))+'</span>':'AS OF '+esc(asof);
   a+=frame(64,110,1792,400,'EMERGENCY FUND / LIVE')+ab('so c',110,160,0,'font-size:180px',cu(cur_,'$'))+
-    ab('lab',700,180,0,'line-height:48px','FLOOR '+money(floor)+' &middot; '+(cur_>=floor?'MET':money(floor-cur_)+' TO GO')+'<br>STRETCH '+money(stretch)+' &middot; '+Math.round(100*cur_/stretch)+'%<br>'+stale);
+    ab('lab',860,180,0,'line-height:48px','FLOOR '+money(floor)+' &middot; '+(cur_>=floor?'MET':money(floor-cur_)+' TO GO')+'<br>STRETCH '+money(stretch)+' &middot; '+Math.round(100*cur_/stretch)+'%<br>'+stale);
   var bx=110,bw=1700,fx=bx+Math.round(bw*floor/stretch);
   a+='<div class="a" style="left:'+bx+'px;top:400px;width:'+bw+'px;height:24px;border:1px solid '+HL+'"></div>'+hbar(bx+1,401,bw-2,22,100*cur_/stretch).replace('background:'+HL,'background:transparent');
   a+='<div class="a" style="left:'+fx+'px;top:388px;width:2px;height:48px;background:'+W+'"></div>'+ab('lab',fx-110,444,0,'',money(floor)+' FLOOR')+ab('lab r',1500,444,310,'',money(stretch))+ab('lab',110,444,0,'','$0');
-  var inc=[612,580,655,702,640,688,731],sp=[540,610,498,520,575,505,560];
-  a+=frame(64,550,1792,410,'WEEKLY INCOME VS SPEND / $ *SAMPLE')+lines(110,590,1700,340,[{v:inc,c:A,sw:3,n:'income $731'},{v:sp,c:D,sw:2,n:'spend $560'}],['-7 WK','','','','','','LAST WK'],400,820,300,[500,700]);
+  a+=empty(64,550,1792,410,'WEEKLY INCOME VS SPEND','NO WEEKS LOGGED YET. STARTED FRESH '+startTag()+'.');
   a+=ab('lab r',860,560,950,'background:'+BG,'THIS WK: TIPS '+moneyOr(mo.tips_week)+' &middot; SPENT TODAY '+moneyOr(mo.spending_today));
-  var tips=[118,96,142,131,155,104,168,127,139,92],tl_=['1','2','3','4','5','6','7','8','9','10'],tp=[];for(i=0;i<10;i++)tp.push('$'+tips[i]);
-  b+=frame(64,110,1792,430,'TIPS PER SHIFT / LAST 10 *SAMPLE &middot; AVG $127')+bars(110,150,1700,360,tips,tl_,6,tp,.45);
-  var dv=debt?debt.current:0,start=dv+1200,hist=[],k;for(k=0;k<8;k++){hist.push(start-k*(1200/7));}
-  var pts=[];for(k=0;k<8;k++){pts.push((10+k*80)+','+(20+250*(1-hist[k]/start)).toFixed(1));}
-  var svg='<svg width="1300" height="320" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="'+W+'" stroke-width="2" points="'+pts.join(' ')+'"/><polyline fill="none" stroke="'+D+'" stroke-width="2" stroke-dasharray="10 10" points="570,'+(20+250*(1-dv/start)).toFixed(1)+' 1240,270"/><circle cx="1240" cy="270" r="9" fill="'+A+'"/>'+T(10,310,'-7 WK *SAMPLE')+T(570,310,'NOW '+money(dv),W,'middle')+T(1240,310,'$0',D,'end')+'</svg>';
-  b+=frame(64,580,1792,380,'DEBT PAYOFF / '+money(dv)+' LEFT')+'<div class="chart" style="left:110px;top:620px;width:1300px;height:320px">'+svg+'<div class="mask"></div></div>';
-  b+=ab('lab',1450,630,380,'line-height:50px','CHECKING '+moneyOr(balance('Checking'))+'<br>OTHER CASH '+moneyOr(balance('Other cash'))+'<br>INVESTMENTS '+moneyOr(balance('Investments'))+'<br>DEBT <span class="w">'+money(dv)+'</span><br>'+(mo.stale?'<span class="c">LEDGER '+esc(asof)+'</span>':''));
+  b+=empty(64,110,1792,430,'TIPS PER SHIFT','NO SHIFTS LOGGED YET. TIPS THIS WEEK '+moneyOr(mo.tips_week)+'.');
+  var tot=balance('Total');if(tot==null){tot=(balance('Checking')||0)+(balance('Cash')||0)+cur_;}
+  b+=frame(64,580,1792,380,'MONEY / FRESH START '+startTag())+ab('so c',110,640,0,'font-size:150px',cu(tot,'$'))+ab('lab',114,820,0,'','TOTAL &middot; E.FUND + CHECKING + CASH');
+  b+=ab('lab',1060,630,760,'line-height:56px','E.FUND '+moneyOr(cur_)+'<br>CHECKING '+moneyOr(balance('Checking'))+'<br>CASH '+moneyOr(balance('Cash'))+'<br>'+(debt&&debt.current!=null?'DEBT <span class="w">'+money(debt.current)+'</span>':'<span class="d">DEBT (OPTIONAL): NOT TRACKED</span>')+'<br>'+(mo.stale?'<span class="warn">LEDGER '+esc(asof)+'</span>':'<span class="d">AS OF '+esc(asof)+'</span>'));
   return [a,b];}
 
 /* ---------- render ---------- */

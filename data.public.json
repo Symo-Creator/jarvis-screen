@@ -259,15 +259,16 @@
   "hours_week": 0,
   "hours_total": 0,
   "sales_reps_total": 0,
-  "plan_week_number": 5,
-  "goal_week_hours_target": 25,
-  "goal_week_mvd_target": 6,
-  "goal_week_reps_target": 10,
-  "goal_month_theme": "Digital marketing map + first sales reps",
-  "goal_month_hours_target": 107,
+  "plan_week_number": 1,
+  "goal_week_hours_target": 18,
+  "goal_week_mvd_target": 4,
+  "goal_week_reps_target": 7,
+  "goal_month_theme": "Rewire attention + inbound basics",
+  "goal_month_hours_target": 89,
   "courses_done": 0,
   "courses_total": 40,
-  "courses_done_pct": 0
+  "courses_done_pct": 0,
+  "start_date": "2026-11-04"
  },
  "money": {
   "source": "private",
@@ -280,9 +281,9 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-03T15:22",
+ "updatedFromExcel": "2026-11-04T00:30",
  "today": {
-  "date": "2026-11-03",
+  "date": "2026-11-04",
   "priority": "EDIT ME: your #1 priority today",
   "tomorrowGoal": ""
  },
@@ -334,6 +335,11 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-03T23:55:00-06:00",
+ "data_updated": "2026-11-04T00:30:00-06:00",
+ "fresh_start": {
+  "date": "2026-11-04",
+  "days": 30,
+  "note": "Reset 2026-11-04. Old data archived in /workspace/archive-2026-11-04-reset/."
+ },
  "public": true
 }
