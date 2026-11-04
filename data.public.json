@@ -1,0 +1,339 @@
+{
+ "config": {
+  "name": "Evan",
+  "city": "Ames, IA",
+  "lat": 42.03,
+  "lon": -93.62,
+  "eventsFile": "events.json"
+ },
+ "points": {
+  "today": 0,
+  "week": 0,
+  "month": 0,
+  "dayMax": 15,
+  "dailyTarget": 10,
+  "weeklyTarget": 60,
+  "monthlyTarget": 240,
+  "rule": "Clear all due Anki cards every day. Miss two days in a row and the streak resets."
+ },
+ "checklist": [
+  {
+   "key": "gym",
+   "text": "Gym",
+   "done": false
+  },
+  {
+   "key": "anki",
+   "text": "Anki cleared",
+   "done": false
+  },
+  {
+   "key": "study",
+   "text": "Study block",
+   "done": false
+  },
+  {
+   "key": "sales",
+   "text": "Sales/marketing practice",
+   "done": false
+  },
+  {
+   "key": "phone",
+   "text": "Phone-free hour",
+   "done": false
+  }
+ ],
+ "courses": [
+  {
+   "name": "Learning How to Learn",
+   "provider": "Coursera",
+   "track": "Focus",
+   "hours": 15,
+   "targetMonth": "Nov 2026",
+   "match": "learning how to learn",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Foundations of Humane Technology",
+   "provider": "Center for Humane Technology",
+   "track": "Focus",
+   "hours": 8,
+   "targetMonth": "Nov 2026",
+   "match": "foundations of humane technology",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "HubSpot Inbound Marketing",
+   "provider": "HubSpot Academy",
+   "track": "Marketing",
+   "hours": 5,
+   "targetMonth": "Oct 2026",
+   "match": "inbound marketing certification",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Google Fundamentals of Digital Marketing",
+   "provider": "Google Skillshop",
+   "track": "Marketing",
+   "hours": 40,
+   "targetMonth": "Dec 2026",
+   "match": "fundamentals of digital marketing",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "HubSpot Content Marketing",
+   "provider": "HubSpot Academy",
+   "track": "Marketing",
+   "hours": 7.5,
+   "targetMonth": "Dec 2026",
+   "match": "content marketing certification",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Semrush SEO Essentials",
+   "provider": "Semrush Academy",
+   "track": "Marketing",
+   "hours": 2,
+   "targetMonth": "Dec 2026",
+   "match": "seo essentials",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Google Ads Search",
+   "provider": "Google Skillshop",
+   "track": "Marketing",
+   "hours": 8,
+   "targetMonth": "Mar 2027",
+   "match": "google ads search",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Google Analytics (GA4)",
+   "provider": "Google Skillshop",
+   "track": "Marketing",
+   "hours": 8,
+   "targetMonth": "Jun 2027",
+   "match": "google analytics",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Khan Finance and Capital Markets",
+   "provider": "Khan Academy",
+   "track": "Fin Mkt",
+   "hours": 20,
+   "targetMonth": "Jan 2027",
+   "match": "finance and capital markets",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "edX Intro to FinTech",
+   "provider": "edX (HKU)",
+   "track": "Fin Mkt",
+   "hours": 12,
+   "targetMonth": "Jan 2027",
+   "match": "introduction to fintech",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "Financial ad compliance pack",
+   "provider": "FINRA, SEC, CFPB, FTC",
+   "track": "Fin Mkt",
+   "hours": 12,
+   "targetMonth": "Feb 2027",
+   "match": "finra rule 2210: communications",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "HubSpot Inbound Sales",
+   "provider": "HubSpot Academy",
+   "track": "Sales",
+   "hours": 3,
+   "targetMonth": "Nov 2026",
+   "match": "inbound sales certification",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "HubSpot Sales Hub Software",
+   "provider": "HubSpot Academy",
+   "track": "Sales",
+   "hours": 1.5,
+   "targetMonth": "Apr 2027",
+   "match": "sales hub software",
+   "done": false,
+   "status": "Not started"
+  },
+  {
+   "name": "MIT OCW Negotiation (15.665)",
+   "provider": "MIT OpenCourseWare",
+   "track": "Sales",
+   "hours": 20,
+   "targetMonth": "May 2027",
+   "match": "power and negotiation",
+   "done": false,
+   "status": "Not started"
+  }
+ ],
+ "defaultSchedule": [
+  {
+   "days": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "start": "05:00",
+   "end": "06:15",
+   "title": "Gym"
+  },
+  {
+   "days": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    0
+   ],
+   "start": "06:15",
+   "end": "07:45",
+   "title": "Planned study"
+  },
+  {
+   "days": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "start": "08:30",
+   "end": "09:45",
+   "title": "Study Deep Block 2"
+  },
+  {
+   "days": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    0
+   ],
+   "start": "17:30",
+   "end": "18:00",
+   "title": "Sales practice"
+  }
+ ],
+ "quotes": [
+  "Never miss twice.",
+  "Clear the cards. Keep the streak.",
+  "Small reps win the year.",
+  "Systems beat moods.",
+  "Every table is a sales rep.",
+  "Focus is a muscle. Train it.",
+  "14 courses. Zero excuses.",
+  "Do the hard thing first."
+ ],
+ "streak": {
+  "streak_current": 0,
+  "streak_longest": 0,
+  "last_logged_date": "none yet",
+  "days_to_milestone": 7,
+  "next_milestone_days": 7,
+  "level_name": "Rookie",
+  "level_number": 1,
+  "xp_to_next_level": 500,
+  "hours_week": 0,
+  "hours_total": 0,
+  "sales_reps_total": 0,
+  "plan_week_number": 5,
+  "goal_week_hours_target": 25,
+  "goal_week_mvd_target": 6,
+  "goal_week_reps_target": 10,
+  "goal_month_theme": "Digital marketing map + first sales reps",
+  "goal_month_hours_target": 107,
+  "courses_done": 0,
+  "courses_total": 40,
+  "courses_done_pct": 0
+ },
+ "money": {
+  "source": "private",
+  "asOf": "",
+  "stale": false,
+  "goals": [],
+  "balances": [],
+  "spendThisMonth": {},
+  "spending_today": null,
+  "tips_week": null,
+  "shift_income_week": null
+ },
+ "updatedFromExcel": "2026-11-03T15:22",
+ "today": {
+  "date": "2026-11-03",
+  "priority": "EDIT ME: your #1 priority today",
+  "tomorrowGoal": ""
+ },
+ "workout": {
+  "placeholder": true,
+  "time": "5:00 to 6:15 AM",
+  "targetWeek": 4,
+  "sessionsWeek": 0,
+  "gymStreak": 0,
+  "doneToday": false,
+  "notes": "",
+  "plan": {
+   "1": {
+    "name": "Push",
+    "exercises": [
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME"
+    ]
+   },
+   "2": {
+    "name": "Pull",
+    "exercises": [
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME"
+    ]
+   },
+   "3": {
+    "name": "Legs",
+    "exercises": [
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME"
+    ]
+   },
+   "4": {
+    "name": "Upper",
+    "exercises": [
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME",
+     "EDIT ME"
+    ]
+   }
+  },
+  "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
+ },
+ "data_updated": "2026-11-03T23:55:00-06:00",
+ "public": true
+}
