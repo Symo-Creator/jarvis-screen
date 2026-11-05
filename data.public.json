@@ -20,7 +20,7 @@
   {
    "key": "gym",
    "text": "Gym",
-   "done": false
+   "done": true
   },
   {
    "key": "anki",
@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-04T23:39",
+ "updatedFromExcel": "2026-11-05T10:57",
  "today": {
   "date": "2026-11-05",
   "priority": "EDIT ME: your #1 priority today",
@@ -290,9 +290,9 @@
   "placeholder": true,
   "time": "5:00 to 6:15 AM",
   "targetWeek": 4,
-  "sessionsWeek": 0,
-  "gymStreak": 0,
-  "doneToday": false,
+  "sessionsWeek": 2,
+  "gymStreak": 2,
+  "doneToday": true,
   "notes": "",
   "plan": {
    "1": {
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-05T08:11:00-06:00",
+ "data_updated": "2026-11-05T10:57:39-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -348,7 +348,7 @@
    "goal": "gym",
    "priority": "high",
    "recurring": true,
-   "done": false,
+   "done": true,
    "checklist": "gym"
   },
   {
@@ -420,7 +420,7 @@
   "days_logged": 1,
   "learning_hours": 0,
   "learning_target": 35,
-  "gym": 0,
+  "gym": 2,
   "gym_target": 4,
   "anki": 0,
   "anki_target": 7
@@ -457,7 +457,7 @@
    0,
    0,
    0,
-   0
+   1
   ],
   "anki": [
    0,
