@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-04T00:42",
+ "updatedFromExcel": "2026-11-04T23:39",
  "today": {
   "date": "2026-11-04",
   "priority": "EDIT ME: your #1 priority today",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-04T00:47:26-06:00",
+ "data_updated": "2026-11-04T23:39:44-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -343,7 +343,7 @@
  "tasks_today": [
   {
    "id": "gym",
-   "text": "Gym: legs",
+   "text": "Gym: upper",
    "time": "05:00",
    "goal": "gym",
    "priority": "high",
@@ -364,7 +364,7 @@
   },
   {
    "id": "anki",
-   "text": "Clear all due Anki cards",
+   "text": "Clear all due Anki cards (never miss twice)",
    "time": "07:45",
    "goal": "habit",
    "priority": "high",
@@ -383,25 +383,6 @@
    "hours": 1.25
   },
   {
-   "id": "ai",
-   "text": "AI project build session",
-   "time": "13:15",
-   "goal": "work/school",
-   "priority": "medium",
-   "recurring": true,
-   "done": false
-  },
-  {
-   "id": "course1",
-   "text": "Course block: Foundations of Humane Technology (60m)",
-   "time": "15:50",
-   "goal": "learning",
-   "hours": 1.0,
-   "priority": "medium",
-   "recurring": true,
-   "done": false
-  },
-  {
    "id": "sales",
    "text": "Sales practice: 10 pitch reps",
    "time": "17:30",
@@ -411,16 +392,6 @@
    "done": false,
    "hours": 0.5,
    "checklist": "sales"
-  },
-  {
-   "id": "course2",
-   "text": "Course block: HubSpot Inbound Sales (45m)",
-   "time": "19:30",
-   "goal": "learning",
-   "hours": 0.75,
-   "priority": "medium",
-   "recurring": true,
-   "done": false
   },
   {
    "id": "phone",
@@ -442,11 +413,11 @@
    "done": false
   }
  ],
- "tasks_date": "2026-11-04",
- "plan_note": "PLAN: On track: 5h learning planned, gym + study routine",
+ "tasks_date": "2026-11-05",
+ "plan_note": "PLAN: 3.25h learning planned. Lighter day: 10 of 10 missed yesterday. ai dropped to lighten the day",
  "week_check": {
   "week_start": "2026-11-02",
-  "days_logged": 0,
+  "days_logged": 1,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 0,
@@ -455,7 +426,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-06",
+  "start": "2026-10-07",
   "days": 30,
   "gym": [
    0,
@@ -641,7 +612,7 @@
    0,
    0,
    0,
-   0
+   1
   ]
  },
  "public": true
