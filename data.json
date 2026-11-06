@@ -20,7 +20,7 @@
   {
    "key": "gym",
    "text": "Gym",
-   "done": true
+   "done": false
   },
   {
    "key": "anki",
@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-05T22:55",
+ "updatedFromExcel": "2026-11-05T23:35",
  "today": {
   "date": "2026-11-05",
   "priority": "EDIT ME: your #1 priority today",
@@ -292,7 +292,7 @@
   "targetWeek": 4,
   "sessionsWeek": 2,
   "gymStreak": 2,
-  "doneToday": true,
+  "doneToday": false,
   "notes": "",
   "plan": {
    "1": {
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-05T22:55:26-06:00",
+ "data_updated": "2026-11-05T23:35:33-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -342,25 +342,24 @@
  },
  "tasks_today": [
   {
-   "id": "gym",
-   "text": "Gym: upper",
-   "time": "05:00",
-   "goal": "gym",
-   "priority": "high",
-   "recurring": true,
-   "done": true,
-   "checklist": "gym"
-  },
-  {
-   "id": "study",
-   "text": "Study block 1: HubSpot Inbound Marketing",
+   "id": "course1",
+   "text": "Course block: HubSpot Inbound Marketing (60m)",
    "time": "06:15",
    "goal": "learning",
-   "priority": "high",
+   "hours": 1.0,
+   "priority": "medium",
    "recurring": true,
-   "done": false,
-   "hours": 1.5,
-   "checklist": "study"
+   "done": false
+  },
+  {
+   "id": "course2",
+   "text": "Course block: Learning How to Learn (30m)",
+   "time": "07:15",
+   "goal": "learning",
+   "hours": 0.5,
+   "priority": "medium",
+   "recurring": true,
+   "done": false
   },
   {
    "id": "anki",
@@ -373,51 +372,48 @@
    "checklist": "anki"
   },
   {
-   "id": "study2",
-   "text": "Study block 2: Learning How to Learn",
-   "time": "08:30",
+   "id": "course3",
+   "text": "Course block: Foundations of Humane Technology (60m)",
+   "time": "08:00",
    "goal": "learning",
-   "priority": "high",
-   "recurring": true,
-   "done": false,
-   "hours": 1.25
-  },
-  {
-   "id": "sales",
-   "text": "Sales practice: 10 pitch reps",
-   "time": "17:30",
-   "goal": "learning",
-   "priority": "high",
-   "recurring": true,
-   "done": false,
-   "hours": 0.5,
-   "checklist": "sales"
-  },
-  {
-   "id": "phone",
-   "text": "Phone-free hour",
-   "time": "19:45",
-   "goal": "habit",
+   "hours": 1.0,
    "priority": "medium",
    "recurring": true,
-   "done": false,
-   "checklist": "phone"
+   "done": false
   },
   {
-   "id": "money",
-   "text": "Log today's income and spending in the ledger",
-   "time": "21:15",
+   "id": "gym",
+   "text": "Gym: make-up session",
+   "time": "09:00",
+   "goal": "gym",
+   "priority": "high",
+   "recurring": true,
+   "checklist": "gym",
+   "done": false
+  },
+  {
+   "id": "tips",
+   "text": "Log tips from tonight's shift",
+   "time": "23:00",
    "goal": "money",
    "priority": "high",
    "recurring": true,
    "done": false
+  },
+  {
+   "id": "carry_money",
+   "text": "Carried: Log today's income and spending in the ledger",
+   "goal": "money",
+   "priority": "high",
+   "done": false,
+   "carried": true
   }
  ],
- "tasks_date": "2026-11-05",
- "plan_note": "PLAN: 3.25h learning planned. Lighter day: 10 of 10 missed yesterday. ai dropped to lighten the day",
+ "tasks_date": "2026-11-06",
+ "plan_note": "PLAN: 2.5h learning planned. Lighter day: 6 of 7 missed yesterday. ai skipped (clashes with serve \u2014 eat, no study). sales skipped (clashes with serve \u2014 eat, no study). phone skipped (clashes with serve \u2014 eat, no study). money skipped (clashes with serve \u2014 eat, no study). Make-up gym added (2 of 4 this week). Only 2.5h of learning fits around the calendar. 1 unfinished task carried over",
  "week_check": {
   "week_start": "2026-11-02",
-  "days_logged": 1,
+  "days_logged": 2,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 2,
@@ -426,7 +422,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-07",
+  "start": "2026-10-08",
   "days": 30,
   "gym": [
    0,
@@ -457,7 +453,7 @@
    0,
    0,
    0,
-   1
+   3
   ],
   "anki": [
    0,
@@ -611,7 +607,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1
   ]
  },
