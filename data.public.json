@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-05T10:57",
+ "updatedFromExcel": "2026-11-05T22:55",
  "today": {
   "date": "2026-11-05",
   "priority": "EDIT ME: your #1 priority today",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-05T10:57:39-06:00",
+ "data_updated": "2026-11-05T22:55:26-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
