@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-05T23:35",
+ "updatedFromExcel": "2026-11-06T23:36",
  "today": {
   "date": "2026-11-06",
   "priority": "Serve day: eat, no study",
@@ -290,8 +290,8 @@
   "placeholder": true,
   "time": "5:00 to 6:15 AM",
   "targetWeek": 4,
-  "sessionsWeek": 2,
-  "gymStreak": 2,
+  "sessionsWeek": 3,
+  "gymStreak": 3,
   "doneToday": false,
   "notes": "",
   "plan": {
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-06T13:50:00-06:00",
+ "data_updated": "2026-11-06T23:36:42-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -399,30 +399,22 @@
    "priority": "high",
    "recurring": true,
    "done": false
-  },
-  {
-   "id": "carry_money",
-   "text": "Carried: Log today's income and spending in the ledger",
-   "goal": "money",
-   "priority": "high",
-   "done": false,
-   "carried": true
   }
  ],
- "tasks_date": "2026-11-06",
- "plan_note": "PLAN: 2.5h learning planned. Lighter day: 6 of 7 missed yesterday. ai skipped (clashes with serve \u2014 eat, no study). sales skipped (clashes with serve \u2014 eat, no study). phone skipped (clashes with serve \u2014 eat, no study). money skipped (clashes with serve \u2014 eat, no study). Make-up gym added (2 of 4 this week). Only 2.5h of learning fits around the calendar. 1 unfinished task carried over",
+ "tasks_date": "2026-11-07",
+ "plan_note": "PLAN: 2.5h learning planned. Lighter day: 4 of 7 missed yesterday. sales skipped (clashes with serve \u2014 eat, no study). phone skipped (clashes with serve \u2014 eat, no study). money skipped (clashes with serve \u2014 eat, no study). Make-up gym added (3 of 4 this week). Only 2.5h of learning fits around the calendar",
  "week_check": {
   "week_start": "2026-11-02",
-  "days_logged": 2,
+  "days_logged": 3,
   "learning_hours": 0,
   "learning_target": 35,
-  "gym": 2,
+  "gym": 3,
   "gym_target": 4,
   "anki": 0,
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-08",
+  "start": "2026-10-09",
   "days": 30,
   "gym": [
    0,
@@ -452,7 +444,7 @@
    0,
    0,
    0,
-   0,
+   3,
    3
   ],
   "anki": [
@@ -606,7 +598,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1
   ]
