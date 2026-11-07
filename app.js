@@ -270,12 +270,33 @@ function render(){var h='',i,secs;LAST=[];
   goSlide(cur,false);}
 function pagers(i){var p=document.getElementById('sl'+i).getElementsByTagName('span'),k;
   for(k=0;k<p.length;k++){if(hasClass(p[k],'pg')){p[k].innerHTML=secIdx[i]?'&#9650; 2/2':'&#9660; 1/2';p[k].className=secIdx[i]?'pg':'pg c';}}}
-function applySection(i,anim){var el=document.getElementById('ss'+i);setT(el,'translateY('+(-1080*secIdx[i])+'px)');pagers(i);if(anim)play(document.getElementById('sc'+i+'_'+secIdx[i]));}
+function applySection(i,anim){var el=document.getElementById('ss'+i);setT(el,'translateY('+(-1080*secIdx[i])+'px)');pagers(i);markCur();if(anim)play(document.getElementById('sc'+i+'_'+secIdx[i]));}
 var moveTimer=null;
 function goSlide(i,anim){cur=(i+5)%5;setT(track,'translateX('+(-1920*cur)+'px)');lastSwitch=new Date().getTime();
   if(anim!==false){addClass(stage,'moving');if(moveTimer)clearTimeout(moveTimer);moveTimer=setTimeout(function(){rmClass(stage,'moving');},650);}
-  play(document.getElementById('sc'+cur+'_'+secIdx[cur]));
+  play(document.getElementById('sc'+cur+'_'+secIdx[cur]));markCur();
   if(paused)drawPause();}
+/* ---------- phone: current slide/section marks, bottom nav, swipe ---------- */
+var TABS=['Overview','Schedule','Habits','Workout','Finances'];
+function markCur(){var i,j,el;for(i=0;i<5;i++){el=document.getElementById('sl'+i);if(!el)continue;if(i===cur)addClass(el,'cur');else rmClass(el,'cur');
+    for(j=0;j<2;j++){var sc=document.getElementById('sc'+i+'_'+j);if(sc){if(j===secIdx[i])addClass(sc,'cur');else rmClass(sc,'cur');}}}
+  drawNav();}
+function drawNav(){var n=document.getElementById('mnav');if(!n||!PHONE)return;var h='<div class="mrow">',i;
+  for(i=0;i<5;i++){h+='<button class="mbtn'+(i===cur?' on':'')+'" data-go="'+i+'">'+TABS[i]+'</button>';}
+  h+='</div><div class="mrow"><button class="mbtn wide'+(secIdx[cur]===0?' on':'')+'" data-sec="0">Part 1</button><button class="mbtn wide'+(secIdx[cur]===1?' on':'')+'" data-sec="1">Part 2</button><button class="mbtn wide pz'+(paused?' on':'')+'" data-pz="1">'+(paused?'&#9654; Auto':'&#10073;&#10073; Pause')+'</button></div>';
+  if(n.innerHTML!==h)n.innerHTML=h;}
+function phoneGo(i){secIdx[(i+5)%5]=0;applySection((i+5)%5,false);goSlide(i);window.scrollTo(0,0);}
+function phoneSec(k){if(secIdx[cur]!==k){secIdx[cur]=k;applySection(cur,true);}window.scrollTo(0,0);}
+(function(){var n=document.getElementById('mnav');if(!n)return;
+  n.onclick=function(e){e=e||window.event;var t=e.target||e.srcElement;while(t&&t!==n&&!t.getAttribute('data-go')&&!t.getAttribute('data-sec')&&!t.getAttribute('data-pz'))t=t.parentNode;if(!t||t===n)return;
+    lastInput=new Date().getTime();
+    if(t.getAttribute('data-go'))phoneGo(+t.getAttribute('data-go'));else if(t.getAttribute('data-sec'))phoneSec(+t.getAttribute('data-sec'));else{setPause(!paused);drawNav();}};
+  var sx=0,sy=0,st=0;
+  document.addEventListener('touchstart',function(e){lastInput=new Date().getTime();if(!PHONE||!e.touches||e.touches.length!==1)return;sx=e.touches[0].clientX;sy=e.touches[0].clientY;st=lastInput;},false);
+  document.addEventListener('touchmove',function(){lastInput=new Date().getTime();},false);
+  document.addEventListener('touchend',function(e){lastInput=new Date().getTime();if(!PHONE||!e.changedTouches||!st)return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;st=0;
+    if(Math.abs(dx)>60&&Math.abs(dx)>2*Math.abs(dy)){if(dx<0)phoneGo(cur+1);else phoneGo(cur-1);}},false);
+  window.addEventListener('scroll',function(){lastInput=new Date().getTime();},false);})();
 function play(root){if(!root)return;rmClass(root,'play');rmClass(root,'settled');void root.offsetWidth;
   var all=root.getElementsByTagName('div'),bi=0,ci=0,mi=0,k;
   for(k=0;k<all.length;k++){var e=all[k],dly=-1;
@@ -334,7 +355,11 @@ function tick(){var n=now(),t=hm(n),i,els=stage.getElementsByTagName('span');
   if(!paused&&!nightOn&&Q.still!=='1'&&ms-lastInput>=IDLE_MS&&ms-lastSwitch>=ROTATE_MS){var nx=(cur+1)%5;secIdx[nx]=0;applySection(nx,false);goSlide(nx);}}
 
 /* ---------- scale stage to window ---------- */
+var PHONE=false;
+function isPhone(w,h){var sw=(window.screen&&screen.width)||w,sh=(window.screen&&screen.height)||h,mn=Math.min(sw,sh),mx=Math.max(sw,sh);if(Q.phone==='1')return true;if(Q.phone==='0')return false;return w<=900||(h<=500&&w<=1000)||(mn<=500&&mx<=1000&&('ontouchstart' in window));}
 function fit(){var w=window.innerWidth||document.documentElement.clientWidth,h=window.innerHeight||document.documentElement.clientHeight,s=Math.min(w/1920,h/1080);
+  var ph=isPhone(w,h);if(ph!==PHONE){PHONE=ph;if(ph){addClass(document.body,'phone');addClass(document.documentElement,'phone');}else{rmClass(document.body,'phone');rmClass(document.documentElement,'phone');}markCur();}
+  if(PHONE){stage.style.left='0';stage.style.top='0';setT(stage,'none');return;}
   stage.style.left=Math.round((w-1920*s)/2)+'px';stage.style.top=Math.round((h-1080*s)/2)+'px';setT(stage,'scale('+s+')');}
 window.onresize=fit;
 
