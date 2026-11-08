@@ -280,9 +280,9 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-06T23:36",
+ "updatedFromExcel": "2026-11-07T23:34",
  "today": {
-  "date": "2026-11-06",
+  "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
   "tomorrowGoal": ""
  },
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-06T23:36:42-06:00",
+ "data_updated": "2026-11-07T23:34:41-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -373,22 +373,22 @@
   },
   {
    "id": "course3",
-   "text": "Course block: Foundations of Humane Technology (60m)",
+   "text": "Course block: Foundations of Humane Technology (30m)",
    "time": "08:00",
    "goal": "learning",
-   "hours": 1.0,
+   "hours": 0.5,
    "priority": "medium",
    "recurring": true,
    "done": false
   },
   {
-   "id": "gym",
-   "text": "Gym: make-up session",
-   "time": "09:00",
-   "goal": "gym",
-   "priority": "high",
+   "id": "course4",
+   "text": "Course block: HubSpot Inbound Sales (60m)",
+   "time": "15:00",
+   "goal": "learning",
+   "hours": 1.0,
+   "priority": "medium",
    "recurring": true,
-   "checklist": "gym",
    "done": false
   },
   {
@@ -401,11 +401,11 @@
    "done": false
   }
  ],
- "tasks_date": "2026-11-07",
- "plan_note": "PLAN: 2.5h learning planned. Lighter day: 4 of 7 missed yesterday. sales skipped (clashes with serve \u2014 eat, no study). phone skipped (clashes with serve \u2014 eat, no study). money skipped (clashes with serve \u2014 eat, no study). Make-up gym added (3 of 4 this week). Only 2.5h of learning fits around the calendar",
+ "tasks_date": "2026-11-08",
+ "plan_note": "PLAN: 3h learning planned. Lighter day: 6 of 6 missed yesterday. sales skipped (clashes with serve \u2014 sunday night). phone skipped (clashes with serve \u2014 sunday night). money skipped (clashes with serve \u2014 sunday night). debt skipped (clashes with serve \u2014 sunday night)",
  "week_check": {
   "week_start": "2026-11-02",
-  "days_logged": 3,
+  "days_logged": 4,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 3,
@@ -414,7 +414,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-09",
+  "start": "2026-10-10",
   "days": 30,
   "gym": [
    0,
@@ -443,9 +443,9 @@
    0,
    0,
    0,
-   0,
    3,
-   3
+   3,
+   0
   ],
   "anki": [
    0,
@@ -597,7 +597,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1
