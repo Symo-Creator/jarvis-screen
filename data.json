@@ -259,10 +259,10 @@
   "hours_week": 0,
   "hours_total": 0,
   "sales_reps_total": 0,
-  "plan_week_number": 1,
-  "goal_week_hours_target": 18,
-  "goal_week_mvd_target": 4,
-  "goal_week_reps_target": 7,
+  "plan_week_number": 2,
+  "goal_week_hours_target": 25,
+  "goal_week_mvd_target": 6,
+  "goal_week_reps_target": 10,
   "goal_month_theme": "Rewire attention + inbound basics",
   "goal_month_hours_target": 89,
   "courses_done": 0,
@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-08T23:36",
+ "updatedFromExcel": "2026-11-09T10:41",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
