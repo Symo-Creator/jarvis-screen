@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-09T10:41",
+ "updatedFromExcel": "2026-11-09T23:36",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-08T23:35:53-06:00",
+ "data_updated": "2026-11-09T23:36:37-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -343,7 +343,7 @@
  "tasks_today": [
   {
    "id": "gym",
-   "text": "Gym: push",
+   "text": "Gym: pull",
    "time": "05:00",
    "goal": "gym",
    "priority": "high",
@@ -414,18 +414,18 @@
   },
   {
    "id": "carry_tips",
-   "text": "Carried: Log tips from tonight's shift",
+   "text": "Carried: Carried: Log tips from tonight's shift",
    "goal": "money",
    "priority": "high",
    "done": false,
    "carried": true
   }
  ],
- "tasks_date": "2026-11-09",
- "plan_note": "PLAN: 3.25h learning planned. Lighter day: 6 of 6 missed yesterday. ai dropped to lighten the day. 1 unfinished task carried over",
+ "tasks_date": "2026-11-10",
+ "plan_note": "PLAN: 3.25h learning planned. Lighter day: 8 of 8 missed yesterday. ai dropped to lighten the day. 1 unfinished task carried over",
  "week_check": {
   "week_start": "2026-11-09",
-  "days_logged": 0,
+  "days_logged": 1,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 0,
@@ -434,7 +434,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-11",
+  "start": "2026-10-12",
   "days": 30,
   "gym": [
    0,
@@ -461,9 +461,9 @@
    0,
    0,
    0,
+   3,
+   3,
    0,
-   3,
-   3,
    0,
    0
   ],
@@ -615,7 +615,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
