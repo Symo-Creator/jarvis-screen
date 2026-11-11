@@ -20,7 +20,7 @@
   {
    "key": "gym",
    "text": "Gym",
-   "done": false
+   "done": true
   },
   {
    "key": "anki",
@@ -290,9 +290,9 @@
   "placeholder": true,
   "time": "5:00 to 6:15 AM",
   "targetWeek": 4,
-  "sessionsWeek": 3,
-  "gymStreak": 3,
-  "doneToday": false,
+  "sessionsWeek": 1,
+  "gymStreak": 1,
+  "doneToday": true,
   "notes": "",
   "plan": {
    "1": {
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-09T23:36:37-06:00",
+ "data_updated": "2026-11-10T23:20:24-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -348,7 +348,7 @@
    "goal": "gym",
    "priority": "high",
    "recurring": true,
-   "done": false,
+   "done": true,
    "checklist": "gym"
   },
   {
@@ -410,14 +410,14 @@
    "goal": "money",
    "priority": "high",
    "recurring": true,
-   "done": false
+   "done": true
   },
   {
    "id": "carry_tips",
    "text": "Carried: Carried: Log tips from tonight's shift",
    "goal": "money",
    "priority": "high",
-   "done": false,
+   "done": true,
    "carried": true
   }
  ],
