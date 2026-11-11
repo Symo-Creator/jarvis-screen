@@ -20,7 +20,7 @@
   {
    "key": "gym",
    "text": "Gym",
-   "done": true
+   "done": false
   },
   {
    "key": "anki",
@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-09T23:36",
+ "updatedFromExcel": "2026-11-10T23:21",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -292,7 +292,7 @@
   "targetWeek": 4,
   "sessionsWeek": 1,
   "gymStreak": 1,
-  "doneToday": true,
+  "doneToday": false,
   "notes": "",
   "plan": {
    "1": {
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-10T23:20:24-06:00",
+ "data_updated": "2026-11-10T23:21:33-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -343,12 +343,12 @@
  "tasks_today": [
   {
    "id": "gym",
-   "text": "Gym: pull",
+   "text": "Gym: legs",
    "time": "05:00",
    "goal": "gym",
    "priority": "high",
    "recurring": true,
-   "done": true,
+   "done": false,
    "checklist": "gym"
   },
   {
@@ -410,31 +410,23 @@
    "goal": "money",
    "priority": "high",
    "recurring": true,
-   "done": true
-  },
-  {
-   "id": "carry_tips",
-   "text": "Carried: Carried: Log tips from tonight's shift",
-   "goal": "money",
-   "priority": "high",
-   "done": true,
-   "carried": true
+   "done": false
   }
  ],
- "tasks_date": "2026-11-10",
- "plan_note": "PLAN: 3.25h learning planned. Lighter day: 8 of 8 missed yesterday. ai dropped to lighten the day. 1 unfinished task carried over",
+ "tasks_date": "2026-11-11",
+ "plan_note": "PLAN: 3.25h learning planned. Lighter day: 5 of 8 missed yesterday. ai dropped to lighten the day",
  "week_check": {
   "week_start": "2026-11-09",
-  "days_logged": 1,
+  "days_logged": 2,
   "learning_hours": 0,
   "learning_target": 35,
-  "gym": 0,
+  "gym": 1,
   "gym_target": 4,
   "anki": 0,
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-12",
+  "start": "2026-10-13",
   "days": 30,
   "gym": [
    0,
@@ -460,12 +452,12 @@
    0,
    0,
    0,
-   0,
    3,
    3,
    0,
    0,
-   0
+   0,
+   3
   ],
   "anki": [
    0,
@@ -614,7 +606,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
