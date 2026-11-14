@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-12T23:26",
+ "updatedFromExcel": "2026-11-13T23:22",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-12T23:26:37-06:00",
+ "data_updated": "2026-11-13T23:22:01-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -422,11 +422,11 @@
    "done": false
   }
  ],
- "tasks_date": "2026-11-13",
- "plan_note": "PLAN: 3h learning planned. Lighter day: 7 of 7 missed yesterday. ai dropped to lighten the day. Make-up gym added (2 of 4 this week)",
+ "tasks_date": "2026-11-14",
+ "plan_note": "PLAN: 3h learning planned. Lighter day: 8 of 8 missed yesterday. Make-up gym added (2 of 4 this week)",
  "week_check": {
   "week_start": "2026-11-09",
-  "days_logged": 4,
+  "days_logged": 5,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 2,
@@ -435,7 +435,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-15",
+  "start": "2026-10-16",
   "days": 30,
   "gym": [
    0,
@@ -458,7 +458,6 @@
    0,
    0,
    0,
-   0,
    3,
    3,
    0,
@@ -466,6 +465,7 @@
    0,
    3,
    3,
+   0,
    0
   ],
   "anki": [
@@ -612,7 +612,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
