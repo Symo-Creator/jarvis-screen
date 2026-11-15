@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-13T23:22",
+ "updatedFromExcel": "2026-11-14T23:30",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-14T00:32:25-06:00",
+ "data_updated": "2026-11-14T23:30:04-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -382,16 +382,6 @@
    "done": false
   },
   {
-   "id": "gym",
-   "text": "Gym: make-up session",
-   "time": "09:00",
-   "goal": "gym",
-   "priority": "high",
-   "recurring": true,
-   "checklist": "gym",
-   "done": false
-  },
-  {
    "id": "sales",
    "text": "Sales practice: 10 pitch reps",
    "time": "17:30",
@@ -401,6 +391,15 @@
    "done": false,
    "hours": 0.5,
    "checklist": "sales"
+  },
+  {
+   "id": "debt",
+   "text": "Weekly money check: debt payment and fund floor",
+   "time": "18:30",
+   "goal": "money",
+   "priority": "high",
+   "recurring": true,
+   "done": false
   },
   {
    "id": "phone",
@@ -422,11 +421,11 @@
    "done": false
   }
  ],
- "tasks_date": "2026-11-14",
- "plan_note": "PLAN: 3h learning planned. Lighter day: 8 of 8 missed yesterday. Make-up gym added (2 of 4 this week)",
+ "tasks_date": "2026-11-15",
+ "plan_note": "PLAN: 3h learning planned. Lighter day: 8 of 8 missed yesterday",
  "week_check": {
   "week_start": "2026-11-09",
-  "days_logged": 5,
+  "days_logged": 6,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 2,
@@ -435,7 +434,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-16",
+  "start": "2026-10-17",
   "days": 30,
   "gym": [
    0,
@@ -457,7 +456,6 @@
    0,
    0,
    0,
-   0,
    3,
    3,
    0,
@@ -465,6 +463,7 @@
    0,
    3,
    3,
+   0,
    0,
    0
   ],
@@ -611,7 +610,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
