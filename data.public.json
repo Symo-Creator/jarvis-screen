@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-17T23:28:40-06:00",
+ "data_updated": "2026-11-18T18:02:55-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
