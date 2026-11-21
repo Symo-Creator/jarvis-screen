@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-19T23:25",
+ "updatedFromExcel": "2026-11-20T23:26",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-19T23:25:55-06:00",
+ "data_updated": "2026-11-20T23:26:17-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -423,18 +423,18 @@
   },
   {
    "id": "carry_debt",
-   "text": "Carried: Carried: Carried: Carried: Carried: Weekly money check: debt payment and fund floor",
+   "text": "Carried: Carried: Carried: Carried: Carried: Carried: Weekly money check: debt payment and fund floor",
    "goal": "money",
    "priority": "high",
    "done": false,
    "carried": true
   }
  ],
- "tasks_date": "2026-11-20",
- "plan_note": "PLAN: 3h learning planned. Lighter day: 8 of 8 missed yesterday. ai dropped to lighten the day. Make-up gym added (0 of 4 this week). 1 unfinished task carried over",
+ "tasks_date": "2026-11-21",
+ "plan_note": "PLAN: 3h learning planned. Lighter day: 9 of 9 missed yesterday. Make-up gym added (0 of 4 this week). 1 unfinished task carried over",
  "week_check": {
   "week_start": "2026-11-16",
-  "days_logged": 4,
+  "days_logged": 5,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 0,
@@ -443,7 +443,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-22",
+  "start": "2026-10-23",
   "days": 30,
   "gym": [
    0,
@@ -459,7 +459,6 @@
    0,
    0,
    0,
-   0,
    3,
    3,
    0,
@@ -467,6 +466,7 @@
    0,
    3,
    3,
+   0,
    0,
    0,
    0,
@@ -613,7 +613,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
