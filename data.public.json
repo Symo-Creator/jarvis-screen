@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-21T23:32",
+ "updatedFromExcel": "2026-11-22T23:28",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-21T23:32:53-06:00",
+ "data_updated": "2026-11-22T23:28:02-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -342,24 +342,25 @@
  },
  "tasks_today": [
   {
-   "id": "course1",
-   "text": "Course block: HubSpot Inbound Marketing (60m)",
-   "time": "06:15",
-   "goal": "learning",
-   "hours": 1.0,
-   "priority": "medium",
+   "id": "gym",
+   "text": "Gym: push",
+   "time": "05:00",
+   "goal": "gym",
+   "priority": "high",
    "recurring": true,
-   "done": false
+   "done": false,
+   "checklist": "gym"
   },
   {
-   "id": "course2",
-   "text": "Course block: Learning How to Learn (30m)",
-   "time": "07:15",
+   "id": "study",
+   "text": "Study block 1: HubSpot Inbound Marketing",
+   "time": "06:15",
    "goal": "learning",
-   "hours": 0.5,
-   "priority": "medium",
+   "priority": "high",
    "recurring": true,
-   "done": false
+   "done": false,
+   "hours": 1.5,
+   "checklist": "study"
   },
   {
    "id": "anki",
@@ -372,14 +373,14 @@
    "checklist": "anki"
   },
   {
-   "id": "course3",
-   "text": "Course block: Foundations of Humane Technology (60m)",
-   "time": "08:00",
+   "id": "study2",
+   "text": "Study block 2: Learning How to Learn",
+   "time": "08:30",
    "goal": "learning",
-   "hours": 1.0,
-   "priority": "medium",
+   "priority": "high",
    "recurring": true,
-   "done": false
+   "done": false,
+   "hours": 1.25
   },
   {
    "id": "sales",
@@ -391,15 +392,6 @@
    "done": false,
    "hours": 0.5,
    "checklist": "sales"
-  },
-  {
-   "id": "debt",
-   "text": "Weekly money check: debt payment and fund floor",
-   "time": "18:30",
-   "goal": "money",
-   "priority": "high",
-   "recurring": true,
-   "done": false
   },
   {
    "id": "phone",
@@ -419,13 +411,21 @@
    "priority": "high",
    "recurring": true,
    "done": false
+  },
+  {
+   "id": "carry_debt",
+   "text": "Carried: Weekly money check: debt payment and fund floor",
+   "goal": "money",
+   "priority": "high",
+   "done": false,
+   "carried": true
   }
  ],
- "tasks_date": "2026-11-22",
- "plan_note": "PLAN: 3h learning planned. Lighter day: 9 of 9 missed yesterday",
+ "tasks_date": "2026-11-23",
+ "plan_note": "PLAN: 3.25h learning planned. Lighter day: 8 of 8 missed yesterday. ai dropped to lighten the day. 1 unfinished task carried over",
  "week_check": {
-  "week_start": "2026-11-16",
-  "days_logged": 6,
+  "week_start": "2026-11-23",
+  "days_logged": 0,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 0,
@@ -434,7 +434,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-24",
+  "start": "2026-10-25",
   "days": 30,
   "gym": [
    0,
@@ -448,7 +448,6 @@
    0,
    0,
    0,
-   0,
    3,
    3,
    0,
@@ -456,6 +455,7 @@
    0,
    3,
    3,
+   0,
    0,
    0,
    0,
@@ -602,7 +602,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
