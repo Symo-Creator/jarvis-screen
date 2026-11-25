@@ -259,12 +259,12 @@
   "hours_week": 0,
   "hours_total": 0,
   "sales_reps_total": 0,
-  "plan_week_number": 8,
+  "plan_week_number": 4,
   "goal_week_hours_target": 25,
   "goal_week_mvd_target": 6,
   "goal_week_reps_target": 10,
-  "goal_month_theme": "Digital marketing map + first sales reps",
-  "goal_month_hours_target": 107,
+  "goal_month_theme": "Rewire attention + inbound basics",
+  "goal_month_hours_target": 89,
   "courses_done": 0,
   "courses_total": 40,
   "courses_done_pct": 0
@@ -280,7 +280,7 @@
   "tips_week": null,
   "shift_income_week": null
  },
- "updatedFromExcel": "2026-11-23T23:28",
+ "updatedFromExcel": "2026-11-24T23:32",
  "today": {
   "date": "2026-11-07",
   "priority": "Serve day: eat, no study",
@@ -334,7 +334,7 @@
   },
   "_help": "PLACEHOLDER split. Keys are weekdays: 1 Mon, 2 Tue, 3 Wed, 4 Thu. Replace EDIT ME with exercises like 'Bench 4x6'. Delete placeholder:true when done."
  },
- "data_updated": "2026-11-23T23:28:40-06:00",
+ "data_updated": "2026-11-24T23:32:44-06:00",
  "fresh_start": {
   "date": "2026-11-04",
   "days": 30,
@@ -343,7 +343,7 @@
  "tasks_today": [
   {
    "id": "gym",
-   "text": "Gym: pull",
+   "text": "Gym: legs",
    "time": "05:00",
    "goal": "gym",
    "priority": "high",
@@ -421,11 +421,11 @@
    "carried": true
   }
  ],
- "tasks_date": "2026-11-24",
+ "tasks_date": "2026-11-25",
  "plan_note": "PLAN: 3.25h learning planned. Lighter day: 8 of 8 missed yesterday. ai dropped to lighten the day. 1 unfinished task carried over",
  "week_check": {
   "week_start": "2026-11-23",
-  "days_logged": 1,
+  "days_logged": 2,
   "learning_hours": 0,
   "learning_target": 35,
   "gym": 0,
@@ -434,7 +434,7 @@
   "anki_target": 7
  },
  "habit_history": {
-  "start": "2026-10-26",
+  "start": "2026-10-27",
   "days": 30,
   "gym": [
    0,
@@ -446,7 +446,6 @@
    0,
    0,
    0,
-   0,
    3,
    3,
    0,
@@ -454,6 +453,7 @@
    0,
    3,
    3,
+   0,
    0,
    0,
    0,
@@ -600,7 +600,7 @@
    0,
    0,
    0,
-   0,
+   1,
    1,
    1,
    1,
